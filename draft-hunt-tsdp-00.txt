@@ -1,0 +1,728 @@
+ 
+
+
+
+INTERNET-DRAFT                                                   J. Hunt
+Intended Status: Proposed Standard                      NiftyLogic, Inc.
+Expires: June 3, 2016                                   December 1, 2015
+
+
+               Telemetry and Sensor Data Protocol -- TSDP
+                           draft-hunt-tsdp-00
+
+
+Abstract
+
+   This document describes the Telemetry and Sensor Data Protocol (TSDP)
+   an application-layer protocol for submission, aggregation and
+   dissemination of measurements and observations about monitored hosts,
+   the applications that run on them, and the services that they
+   provide.
+
+Status of this Memo
+
+   This Internet-Draft is submitted to IETF in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF), its areas, and its working groups.  Note that
+   other groups may also distribute working documents as
+   Internet-Drafts.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress..
+
+   The list of current Internet-Drafts can be accessed at
+   http://www.ietf.org/1id-abstracts.html
+
+   The list of Internet-Draft Shadow Directories can be accessed at
+   http://www.ietf.org/shadow.html
+
+
+Copyright and License Notice
+
+   Copyright (c) 2015 IETF Trust and the persons identified as the
+   document authors. All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (http://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document. Please review these documents
+ 
+
+
+J. Hunt                   Expires June 3, 2016                  [Page 1]
+
+INTERNET DRAFT                    TSDP                  December 1, 2015
+
+
+   carefully, as they describe your rights and restrictions with respect
+   to this document. Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+
+
+Table of Contents
+
+   1  Introduction  . . . . . . . . . . . . . . . . . . . . . . . . .  4
+     1.1  Terminology . . . . . . . . . . . . . . . . . . . . . . . .  4
+   2  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . . .  5
+     2.1  Collected Data  . . . . . . . . . . . . . . . . . . . . . .  5
+       2.1.1  Measurements  . . . . . . . . . . . . . . . . . . . . .  5
+       2.1.2  Events  . . . . . . . . . . . . . . . . . . . . . . . .  5
+       2.1.3  Keys  . . . . . . . . . . . . . . . . . . . . . . . . .  5
+       2.1.4  States  . . . . . . . . . . . . . . . . . . . . . . . .  5
+     2.2  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  5
+   3  Qualified Names . . . . . . . . . . . . . . . . . . . . . . . .  6
+     3.1  ABNF Grammar  . . . . . . . . . . . . . . . . . . . . . . .  6
+     3.2  Equivalance and Comparison  . . . . . . . . . . . . . . . .  6
+       3.2.1  Whitespace Normalization  . . . . . . . . . . . . . . .  7
+       3.2.2  Order Normalization . . . . . . . . . . . . . . . . . .  7
+       3.2.1  Normalization of Qualified Names  . . . . . . . . . . .  7
+       3.2.2  Concrete Matching of Qualified Names  . . . . . . . . .  7
+       3.2.3  Partial Matching of Qualified Names . . . . . . . . . .  7
+   4  Wire Protocol . . . . . . . . . . . . . . . . . . . . . . . . .  8
+     4.1  PDU Format  . . . . . . . . . . . . . . . . . . . . . . . .  8
+       4.1.1  PDU Header Format . . . . . . . . . . . . . . . . . . .  8
+         4.1.1.1  VERSION Field . . . . . . . . . . . . . . . . . . .  8
+         4.1.1.2  OPCODE Field  . . . . . . . . . . . . . . . . . . .  9
+         4.1.1.3  FLAGS Field . . . . . . . . . . . . . . . . . . . .  9
+         4.1.1.4  DATATYPE Field  . . . . . . . . . . . . . . . . . .  9
+       4.1.2  PDU Frame Format  . . . . . . . . . . . . . . . . . . .  9
+         4.1.2.1  FF Field  . . . . . . . . . . . . . . . . . . . . . 10
+         4.1.2.2  TYPE Field  . . . . . . . . . . . . . . . . . . . . 10
+         4.1.2.3  LENGTH Field  . . . . . . . . . . . . . . . . . . . 10
+     4.2  PDU Specification . . . . . . . . . . . . . . . . . . . . . 11
+       4.2.1  HEARTBEAT PDU . . . . . . . . . . . . . . . . . . . . . 11
+       4.2.2  SUBMIT PDU  . . . . . . . . . . . . . . . . . . . . . . 11
+         4.2.2.1  SUBMIT SAMPLE . . . . . . . . . . . . . . . . . . . 11
+         4.2.2.2  SUBMIT TALLY  . . . . . . . . . . . . . . . . . . . 11
+         4.2.2.3  SUBMIT DELTA  . . . . . . . . . . . . . . . . . . . 11
+         4.2.2.4  SUBMIT STATE  . . . . . . . . . . . . . . . . . . . 11
+         4.2.2.5  SUBMIT EVENT  . . . . . . . . . . . . . . . . . . . 11
+         4.2.2.6  SUBMIT KEY  . . . . . . . . . . . . . . . . . . . . 11
+       4.2.3  BROADCAST PDU . . . . . . . . . . . . . . . . . . . . . 11
+ 
+
+
+J. Hunt                   Expires June 3, 2016                  [Page 2]
+
+INTERNET DRAFT                    TSDP                  December 1, 2015
+
+
+         4.2.4.1  BROADCAST SAMPLE  . . . . . . . . . . . . . . . . . 11
+         4.2.4.2  BROADCAST TALLY . . . . . . . . . . . . . . . . . . 11
+         4.2.4.3  BROADCAST DELTA . . . . . . . . . . . . . . . . . . 11
+         4.2.4.4  BROADCAST STATE . . . . . . . . . . . . . . . . . . 11
+         4.2.4.5  BROADCAST EVENT . . . . . . . . . . . . . . . . . . 12
+         4.2.4.6  BROADCAST KEY . . . . . . . . . . . . . . . . . . . 12
+       4.2.4  FORGET PDU  . . . . . . . . . . . . . . . . . . . . . . 12
+         4.2.4.1  FORGET SAMPLE . . . . . . . . . . . . . . . . . . . 12
+         4.2.4.2  FORGET TALLY  . . . . . . . . . . . . . . . . . . . 12
+         4.2.4.3  FORGET DELTA  . . . . . . . . . . . . . . . . . . . 12
+         4.2.4.4  FORGET STATE  . . . . . . . . . . . . . . . . . . . 12
+       4.2.5  REBROADCAST PDU . . . . . . . . . . . . . . . . . . . . 12
+       4.2.6  SUBSCRIBE PDU . . . . . . . . . . . . . . . . . . . . . 12
+   5  Security Considerations . . . . . . . . . . . . . . . . . . . . 13
+   6  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 13
+   7  References  . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+     7.1  Normative References  . . . . . . . . . . . . . . . . . . . 13
+     7.2  Informative References  . . . . . . . . . . . . . . . . . . 13
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 13
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+J. Hunt                   Expires June 3, 2016                  [Page 3]
+
+INTERNET DRAFT                    TSDP                  December 1, 2015
+
+
+1  Introduction
+
+   Monitoring is an essential component of any successful systems
+   architecture. The data provided by accurate monitoring systems proves
+   invaluable in early problem detection, root-cause analysis, system
+   and component performance troubleshooting, and system capacity
+   forecasting.  Self-healing systems can be implemented using collected
+   monitoring data to dispatch automated agents to fix problems and/or
+   allocate more resources as thresholds are violated.
+
+   The Telemetry and Sensor Data Protocol (TSDP) is a lightweight,
+   connection-less protocol that uses small, platform-independent,
+   binary datagrams for submission and dissemination of monitored data. 
+   It provides semantics for aggregation of collected measurements, and
+   defines a means for consumers of those measurements to opt-in to
+   receive aggregates of interest.
+
+   The intent of TSDP is to provide a well-specified standard for
+   building monitoring systems.
+
+1.1  Terminology
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in RFC 2119 [RFC2119].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+J. Hunt                   Expires June 3, 2016                  [Page 4]
+
+INTERNET DRAFT                    TSDP                  December 1, 2015
+
+
+2  Overview
+
+   TSDP enables independent hosts (referred to as "collectors") to
+   submit data to other hosts ("aggregators") that perform summary
+   transformations on the collected data, and then disseminate this
+   summarized information to other hosts (called "subscribers") to then
+   act on the data.
+
+   Aggregators are almost always large, dedicated systems that are built
+   with the singular purpose of implementing the behaviors defined in
+   this specification: data submission, summarization, and broadcast.
+
+   Collectors can be anything: a software agent that regularly polls the
+   /proc file system to determine how much CPU time has been used, a
+   scheduled task that queries network devices via SNMP for traffic and
+   memory statistics, or a log processor that extracts event data from
+   syslog streams.
+
+   Subscribers are likewise diverse, providing wide-ranging
+   functionality like event correlation, problem notification, scale-up
+   / scale-down provisioning, data visualization, and more.
+
+   Decoupling these three components of a monitoring system --
+   collector, aggregator and subscriber -- allows each part to evolve
+   independently, and affords system designers the flexibility they need
+   in both initial implementation and future extensibility.  At the same
+   time, this specification defines a protocol to ensure that these
+   decoupled pieces and parts still function correctly, as a cohesive
+   whole.
+
+2.1  Collected Data
+
+2.1.1  Measurements
+
+2.1.2  Events
+
+2.1.3  Keys
+
+2.1.4  States
+
+2.2 
+
+
+
+
+
+
+
+ 
+
+
+J. Hunt                   Expires June 3, 2016                  [Page 5]
+
+INTERNET DRAFT                    TSDP                  December 1, 2015
+
+
+3  Qualified Names
+
+   Every piece of collected data is identified by a globally unique
+   Qualified Name, chosen based on the needs of system designers and
+   their problem domain.
+
+3.1  ABNF Grammar
+
+   Here is the Augmented Backus-Naur Grammar for qualified names:
+
+      ws         = " "
+      glob       = "*"
+      character  = %x21-29 / %x2b / %x2d-3c / %x3e-5b / %x5d-7e /
+                       ; all printable characters
+                       ; except "*", ",", "=" or "\".
+
+                   %x5c.%x2a / %x5c.%x2c / %x5c.%x3d / %x5c.%x5c
+                       ; backslash escape sequences
+                       ; for literal "*", ",", "=" and "\".
+
+      key        = 1*character
+      value      =  *character     ; values can be empty
+      component  = glob / ( key *ws "=" *ws ( value / glob ) )
+
+      name       = *( component *ws "," *ws ) component
+
+   Informally, each qualified name is composed of one or more key/value
+   pairs, separated by commas.  The key and value are separated by an
+   equal sign, and whitespace is optional around all delimiters.  The
+   asterisk character "*" signifies a glob used for partial matching.
+
+   To encode a literal "=", "," or "*", precede it with a single
+   backslash, "\".  To encode a literal backslash, precede it with a
+   single backslash, yielding "\\".
+
+3.2  Equivalance and Comparison
+
+   It is often necessary to determine if two Qualified Names are
+   equivalent, for purposes of aggregation and data analysis.  However,
+   because of whitespace and re-ordering of key-value pairs, two
+   qualified names may be lexically different but semantically
+   equivalent.
+
+   Two qualified names are equivalent if they are byte-for-byte equal
+   after the following normalizing transformations:
+
+       1. remove optional whitespace around key/value delimiter ("=")
+       2. remove optional whitespace around key/value pairs
+ 
+
+
+J. Hunt                   Expires June 3, 2016                  [Page 6]
+
+INTERNET DRAFT                    TSDP                  December 1, 2015
+
+
+       3. normalize case of keys
+       4. reorder key/value pairs by sorting keys lexically
+
+3.2.1  Whitespace Normalization
+
+   The optional whitespace surrounding the key-value separator ("=")
+   must be removed.
+
+3.2.2  Order Normalization
+
+3.2.1  Normalization of Qualified Names
+
+3.2.2  Concrete Matching of Qualified Names
+
+3.2.3  Partial Matching of Qualified Names
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+J. Hunt                   Expires June 3, 2016                  [Page 7]
+
+INTERNET DRAFT                    TSDP                  December 1, 2015
+
+
+4  Wire Protocol
+
+   TSDP components communicate by exchanging Protocol Data Units (PDUs)
+   with one another, over UDP.  Each PDU consists of a HEADER and one or
+   more FRAMEs.
+
+4.1  PDU Format
+
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |                    HEADER                     |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |                   FRAME #1                    |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |                      ...                      |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |                   FRAME #N                    |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+4.1.1  PDU Header Format
+
+   The HEADER provides metadata about the PDU, including the version of
+   the Bolo protocol that governs the encoding and behavior, an OPCODE,
+   a DATATYPE and a set of operation-specific FLAGS.
+
+   The HEADER is exactly 32-bits long:
+
+          0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+        +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      0 |  VERSION  |  OPCODE   |         FLAGS         |
+        +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      1 |                  DATATYPE                     |
+        +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+4.1.1.1  VERSION Field
+
+   The 4-bit VERSION field identifies what version of the protocol (and,
+   by extension, this specification) was used to generate the PDU.  This
+   allows for future expansion of the wire protocol.  Future versions of
+   this specification will identify where any behavior is expected to
+   diverge, based on the protocol version.
+
+   Currently allocated bit patterns for VERSION are:
+
+        [ 0000 ]  (0)  <malformed version>
+        [ 0001 ]  (1)  v1
+           ..     ...  (reserved for future use)
+        [ 1111 ]  (F)  (reserved for future use)
+
+ 
+
+
+J. Hunt                   Expires June 3, 2016                  [Page 8]
+
+INTERNET DRAFT                    TSDP                  December 1, 2015
+
+
+4.1.1.2  OPCODE Field
+
+   The 4-bit OPCODE field controls the syntax and semantics of both the
+   FLAGS field and the FRAMEs that comprise the rest of the PDU.
+
+   Currently allocated bit patterns for OPCODE are:
+
+              [ 0000 ]  (0)  HEARTBEAT
+              [ 0001 ]  (1)  SUBMIT
+              [ 0010 ]  (2)  BROADCAST
+              [ 0011 ]  (3)  FORGET
+              [ 0011 ]  (4)  REPLAY
+              [ 0100 ]  (5)  SUBSCRIBE
+                 ..     ...  (reserved for future use)
+              [ 1111 ]  (F)  (reserved for future use)
+
+4.1.1.3  FLAGS Field
+
+   The 8-bit FLAGS field is reserved for use by OPCODEs.
+
+4.1.1.4  DATATYPE Field
+
+   The 8-bit DATATYPE field provides some additional context to the
+   OPCODE value, by specifying which type of data the operation should
+   constrain itself to.
+
+        [ 0000 0000 ]  (00)  (none)
+
+        [ 0000 0001 ]  (01)  SAMPLE
+        [ 0000 0010 ]  (02)  TALLY
+        [ 0000 0100 ]  (04)  DELTA
+        [ 0000 1000 ]  (08)  STATE
+        [ 0001 0000 ]  (10)  EVENT
+        [ 0010 0000 ]  (20)  KEY
+
+        [ 0100 0000 ]  (40)  (reserved)
+        [ 1000 0000 ]  (80)  (reserved)
+
+        [ 1111 1111 ]  (FF)  (all)
+
+4.1.2  PDU Frame Format
+
+   The actual data of TSDP PDUs lives in one or more frames.  Each frame
+   consists of a small, fixed-size 16-byte metadata header.
+
+        +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+        |FF|  TYPE  |          LENGTH                   |
+        +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ 
+
+
+J. Hunt                   Expires June 3, 2016                  [Page 9]
+
+INTERNET DRAFT                    TSDP                  December 1, 2015
+
+
+        |                    (data)                     |
+        +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+4.1.2.1  FF Field
+
+   The 1-bit FF field identifies whether or not this frame is the last
+   one in the PDU, or if more frames follow.
+
+        [ 0 ]  (0)  No; more frames follow this one
+        [ 1 ]  (1)  Yes; this is the final frame
+
+4.1.2.2  TYPE Field
+
+   The 3-bit TYPE field identifies the type of value that this frame
+   encodes.
+
+      [ 000 ]  (0)  UINT64   unsigned integer (32/64-bit, per LENGTH)
+      [ 001 ]  (1)  FLOAT64  floating-point number (IEEE-754 float32/64)
+      [ 010 ]  (2)  STRING   raw string data (LENGTH octets)
+        ...    ...  ...      (reserved)
+      [ 110 ]  (6)  TSTAMP   timestamp in ms since UNIX epoch (uint64)
+      [ 111 ]  (7)  NIL      nil frame / no body
+
+
+4.1.2.3  LENGTH Field
+
+
+   The 12-bit LENGTH field identifies how many additional bytes (beyond
+   the 16-bit frame header) of data are included in the frame.  This is
+   the length of the payload.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+J. Hunt                   Expires June 3, 2016                 [Page 10]
+
+INTERNET DRAFT                    TSDP                  December 1, 2015
+
+
+4.2  PDU Specification
+
+4.2.1  HEARTBEAT PDU
+
+   Clients submitting data to the bolo core may also opt to send
+   HEARTBEAT packets   that identify how many UDP packets have been
+   transmitted by the client to the core.   This enables a rudimentary
+   form of packet-loss detection, since the bolo core will   keep track
+   of the number of packets received from the sender.
+
+      Packets are tracked based on the tuple (sender-ip, sender-port).
+
+      The DATATYPE field must zeroed [ 0000 0000 ], and has no semantics
+   presently.
+
+      HEARTBEAT      1 (tstamp/64)   Time of measurement      1
+   (uint/64)     Number of packets transmitted so far
+
+                +--+--+--+--+--+--+--+--+      FLAGS: |Ro| ...
+   (reserved) ... |             +--+--+--+--+--+--+--+--+
+
+                Ro: (ROLLOVER) 64-bit unsigned integer bounds rollover  
+                 detected; the packets value (frame 2) wrapped around
+
+4.2.2  SUBMIT PDU
+
+4.2.2.1  SUBMIT SAMPLE
+
+4.2.2.2  SUBMIT TALLY
+
+4.2.2.3  SUBMIT DELTA
+
+4.2.2.4  SUBMIT STATE
+
+4.2.2.5  SUBMIT EVENT
+
+4.2.2.6  SUBMIT KEY
+
+4.2.3  BROADCAST PDU
+
+4.2.4.1  BROADCAST SAMPLE
+
+4.2.4.2  BROADCAST TALLY
+
+4.2.4.3  BROADCAST DELTA
+
+4.2.4.4  BROADCAST STATE
+
+ 
+
+
+J. Hunt                   Expires June 3, 2016                 [Page 11]
+
+INTERNET DRAFT                    TSDP                  December 1, 2015
+
+
+4.2.4.5  BROADCAST EVENT
+
+4.2.4.6  BROADCAST KEY
+
+4.2.4  FORGET PDU
+
+4.2.4.1  FORGET SAMPLE
+
+4.2.4.2  FORGET TALLY
+
+4.2.4.3  FORGET DELTA
+
+4.2.4.4  FORGET STATE
+
+4.2.5  REBROADCAST PDU
+
+4.2.6  SUBSCRIBE PDU
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+J. Hunt                   Expires June 3, 2016                 [Page 12]
+
+INTERNET DRAFT                    TSDP                  December 1, 2015
+
+
+5  Security Considerations
+
+   <Security considerations text>
+
+
+6  IANA Considerations
+
+   <IANA considerations text>
+
+
+7  References
+
+7.1  Normative References
+
+
+7.2  Informative References
+
+
+
+Authors' Addresses
+
+
+   James Hunt
+
+   EMail: james@niftylogic.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+J. Hunt                   Expires June 3, 2016                 [Page 13]
