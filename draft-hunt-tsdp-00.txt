@@ -589,9 +589,9 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
    Currently allocated bit patterns for VERSION are:
 
-        [ 0000 ]  (0)  <malformed version>
-        [ 0001 ]  (1)  v1
-           ..     ...  (reserved for future use)
+      [ 0000 ]  (0)  <malformed version>
+      [ 0001 ]  (1)  v1
+         ..     ...  (reserved for future use)
 
 
 
@@ -604,7 +604,7 @@ J. Hunt                   Expires June 3, 2016         FORMFEED[Page 10]
 INTERNET DRAFT                    TSDP                  December 1, 2015
 
 
-        [ 1111 ]  (F)  (reserved for future use)
+      [ 1111 ]  (F)  (reserved for future use)
 
 4.1.1.2  OPCODE Field
 
@@ -613,14 +613,14 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
    Currently allocated bit patterns for OPCODE are:
 
-        [ 0000 ]  (0)  HEARTBEAT
-        [ 0001 ]  (1)  SUBMIT
-        [ 0010 ]  (2)  BROADCAST
-        [ 0011 ]  (3)  FORGET
-        [ 0011 ]  (4)  REPLAY
-        [ 0100 ]  (5)  SUBSCRIBE
-           ..     ...  (reserved for future use)
-        [ 1111 ]  (F)  (reserved for future use)
+      [ 0000 ]  (0)  HEARTBEAT
+      [ 0001 ]  (1)  SUBMIT
+      [ 0010 ]  (2)  BROADCAST
+      [ 0011 ]  (3)  FORGET
+      [ 0011 ]  (4)  REPLAY
+      [ 0100 ]  (5)  SUBSCRIBE
+         ..     ...  (reserved for future use)
+      [ 1111 ]  (F)  (reserved for future use)
 
 4.1.1.3  FLAGS Field
 
@@ -632,26 +632,27 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
    OPCODE value, by specifying which type of data the operation should
    constrain itself to.
 
-        [ 0000 0000 ]  (00)  (none)
+      [ 0000 0000 ]  (00)  (none)
 
-        [ 0000 0001 ]  (01)  SAMPLE
-        [ 0000 0010 ]  (02)  TALLY
-        [ 0000 0100 ]  (04)  DELTA
-        [ 0000 1000 ]  (08)  STATE
-        [ 0001 0000 ]  (10)  EVENT
-        [ 0010 0000 ]  (20)  FACT
+      [ 0000 0001 ]  (01)  SAMPLE
+      [ 0000 0010 ]  (02)  TALLY
+      [ 0000 0100 ]  (04)  DELTA
+      [ 0000 1000 ]  (08)  STATE
+      [ 0001 0000 ]  (10)  EVENT
+      [ 0010 0000 ]  (20)  FACT
 
-        [ 0100 0000 ]  (40)  (reserved)
-        [ 1000 0000 ]  (80)  (reserved)
+      [ 0100 0000 ]  (40)  (reserved)
+      [ 1000 0000 ]  (80)  (reserved)
 
-        [ 1111 1111 ]  (FF)  (all)
+      [ 1111 1111 ]  (FF)  (all)
 
 4.1.2  PDU Frame Format
 
    The actual data of TSDP PDUs lives in one or more frames.  Each frame
    consists of a small, fixed‐size 16‐byte metadata header.
 
-         0                             1
+       0                             1
+
 
 
 
@@ -664,20 +665,20 @@ J. Hunt                   Expires June 3, 2016         FORMFEED[Page 11]
 INTERNET DRAFT                    TSDP                  December 1, 2015
 
 
-         0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
-        +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-        |FF|  TYPE  |          LENGTH                   |
-        +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-        |                    (data)                     |
-        +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+       0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      |FF|  TYPE  |          LENGTH                   |
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      |                    (data)                     |
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
 
 4.1.2.1  FF Field
 
    The 1‐bit FF field identifies whether or not this frame is the last
    one in the PDU, or if more frames follow.
 
-        [ 0 ]  (0)  No; more frames follow this one
-        [ 1 ]  (1)  Yes; this is the final frame
+      [ 0 ]  (0)  No; more frames follow this one
+      [ 1 ]  (1)  Yes; this is the final frame
 
 4.1.2.2  TYPE Field
 
@@ -830,8 +831,8 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
    The only applicable DATATYPE values for this opcode are:
 
-        SAMPLE      TALLY        DELTA
-        STATE       EVENT        FACT
+             SAMPLE      TALLY        DELTA
+             STATE       EVENT        FACT
 
 
 

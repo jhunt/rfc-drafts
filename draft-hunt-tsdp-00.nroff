@@ -302,7 +302,7 @@ their problem domain.
 
 Here is the Augmented Backus-Naur Grammar for qualified names:
 
-.in 6
+.in +3
 .nf
 ws         = " "
 glob       = "*"
@@ -320,7 +320,7 @@ component  = glob / ( key *ws "=" *ws ( value / glob ) )
 
 name       = *( component *ws "," *ws ) component
 .fi
-.in 3
+.in -3
 
 Informally, each qualified name is composed of one or more key/value
 pairs, separated by commas.  The key and value are separated by an
@@ -343,12 +343,12 @@ Two qualified names are equivalent if they are byte-for-byte equal after the
 following normalizing transformations:
 
 .nf
-.in 7
+.in +4
 1. remove optional whitespace around key/value delimiter ("=")
 2. remove optional whitespace around key/value pairs
 3. normalize case of keys
 4. reorder key/value pairs by sorting keys lexically
-.in 3
+.in -4
 .fi
 
 .ti 0
@@ -357,13 +357,13 @@ following normalizing transformations:
 The following Qualified names are equivalent:
 
 .nf
-.in 5
+.in +2
 A) host=foo.example.com,type=cpu,CPU=0
 B) host=foo.example.com, type=cpu, CPU=0
 C) host=foo.example.com, TYPE=cpu, cpu=0
 D) type=cpu, CPU=0, host=foo.example.com
 E) type = cpu,   CPU = 0,    host = foo.example.com
-.in 3
+.in -2
 .fi
 
 A and B are equivalent per rule #2.  B and C are equivalent per rule #3.  C
@@ -380,7 +380,7 @@ over UDP.  Each PDU consists of a HEADER and one or more FRAMEs.
 .ti 0
 4.1  PDU Format
 
-.in 6
+.in +3
 .nf
 +-----------------------------------------------+
 |                    HEADER                     |
@@ -392,7 +392,7 @@ over UDP.  Each PDU consists of a HEADER and one or more FRAMEs.
 |                   FRAME #N                    |
 +-----------------------------------------------+
 .fi
-.in 3
+.in -3
 
 .ti 0
 4.1.1  PDU Header Format
@@ -403,7 +403,7 @@ and a set of operation-specific FLAGS.
 
 The HEADER is exactly 32-bits long:
 
-.in 6
+.in +3
 .nf
 
  0                             1
@@ -414,7 +414,7 @@ The HEADER is exactly 32-bits long:
 |                  DATATYPE                     |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 .fi
-.in 3
+.in -3
 
 .ti 0
 4.1.1.1  VERSION Field
@@ -427,14 +427,14 @@ protocol version.
 
 Currently allocated bit patterns for VERSION are:
 
-.in 8
+.in +3
 .nf
 [ 0000 ]  (0)  <malformed version>
 [ 0001 ]  (1)  v1
    ..     ...  (reserved for future use)
 [ 1111 ]  (F)  (reserved for future use)
 .fi
-.in 3
+.in -3
 
 .ti 0
 4.1.1.2  OPCODE Field
@@ -444,7 +444,7 @@ field and the FRAMEs that comprise the rest of the PDU.
 
 Currently allocated bit patterns for OPCODE are:
 
-.in 8
+.in +3
 .nf
 [ 0000 ]  (0)  HEARTBEAT
 [ 0001 ]  (1)  SUBMIT
@@ -455,7 +455,7 @@ Currently allocated bit patterns for OPCODE are:
    ..     ...  (reserved for future use)
 [ 1111 ]  (F)  (reserved for future use)
 .fi
-.in 3
+.in -3
 
 .ti 0
 4.1.1.3  FLAGS Field
@@ -469,7 +469,7 @@ The 8-bit DATATYPE field provides some additional context to the OPCODE
 value, by specifying which type of data the operation should constrain
 itself to.
 
-.in 8
+.in +3
 .nf
 [ 0000 0000 ]  (00)  (none)
 
@@ -485,7 +485,7 @@ itself to.
 
 [ 1111 1111 ]  (FF)  (all)
 .fi
-.in 3
+.in -3
 
 .ti 0
 4.1.2  PDU Frame Format
@@ -493,7 +493,7 @@ itself to.
 The actual data of TSDP PDUs lives in one or more frames.  Each frame consists of a
 small, fixed-size 16-byte metadata header.
 
-.in 8
+.in +3
 .nf
  0                             1
  0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
@@ -503,7 +503,7 @@ small, fixed-size 16-byte metadata header.
 |                    (data)                     |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 .fi
-.in 3
+.in -3
 
 .ti 0
 4.1.2.1  FF Field
@@ -511,19 +511,19 @@ small, fixed-size 16-byte metadata header.
 The 1-bit FF field identifies whether or not this frame is the last one in the PDU,
 or if more frames follow.
 
-.in 8
+.in +3
 .nf
 [ 0 ]  (0)  No; more frames follow this one
 [ 1 ]  (1)  Yes; this is the final frame
 .fi
-.in 3
+.in -3
 
 .ti 0
 4.1.2.2  TYPE Field
 
 The 3-bit TYPE field identifies the type of value that this frame encodes.
 
-.in 6
+.in +3
 .nf
 [ 000 ]  (0)  UINT     unsigned integer (32/64-bit, per LENGTH)
 [ 001 ]  (1)  FLOAT    floating-point number (IEEE-754 float32/64)
@@ -532,7 +532,7 @@ The 3-bit TYPE field identifies the type of value that this frame encodes.
 [ 110 ]  (6)  TSTAMP   timestamp in ms since UNIX epoch (uint64)
 [ 111 ]  (7)  NIL      nil frame / no body
 .fi
-.in 3
+.in -3
 
 UINT provides unsigned integer data, encoded in big-endian format, where the
 first bit in the payload is the most significant.
@@ -627,11 +627,11 @@ that contains the number of packets transmitted so far:
 4.2.1.3  Flags
 
 .nf
-.in 6
+.in +3
 +--+--+--+--+--+--+--+--+
 |Ro| ... (reserved) ... |
 +--+--+--+--+--+--+--+--+
-.in 3
+.in -3
 .fi
 
 Ro (ROLLOVER) is a 1-bit boolean flag that indicates whether or not the
@@ -649,10 +649,10 @@ and auxiliary data to the aggregator(s).
 The only applicable DATATYPE values for this opcode are:
 
 .nf
-.in 8
+.in +10
 SAMPLE      TALLY        DELTA
 STATE       EVENT        FACT
-.in 3
+.in -10
 .fi
 
 DATATYPE values cannot be combined.  Any PDUs found with multiple DATATYPE
@@ -666,126 +666,126 @@ following subsections.
 4.2.2.2  SAMPLE
 
 .nf
-.in 6
+.in +3
 1  (string/*)   Qualified name of the sample set
 1  (tstamp/64)  Time of measurement
 +  (float/64)   Measurement to add to the sample set
                 (variadic: more than one value can be specified
-.in 3
+.in -3
 .fi
 
 .nf
-.in 6
+.in +3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
-.in 3
+.in -3
 .fi
 
 .ti 0
 4.2.2.3  TALLY
 
 .nf
-.in 6
+.in +3
 1  (string/*)   Qualified name of the tally
 1  (tstamp/64)  Time of measurement
 ?  (uint/16)    Value to increment the tally by
                 (optional: if not specified, tally is incremented by 1)
-.in 3
+.in -3
 .fi
 
 .nf
-.in 6
+.in +3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
-.in 3
+.in -3
 .fi
 
 .ti 0
 4.2.2.4  DELTA
 
 .nf
-.in 6
+.in +3
 1  (string/*)   Qualified name of the delta
 1  (tstamp/64)  Time of measurement
 1  (float/64)   Measurement value
-.in 3
+.in -3
 .fi
 
 .nf
-.in 6
+.in +3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
-.in 3
+.in -3
 .fi
 
 .ti 0
 4.2.2.5  STATE
 
 .nf
-.in 6
+.in +3
 1 (string/*)    Qualified name of the state
 1 (tstamp/64)   Time of state check
 ? (string/*)    Summary message text
-.in 3
+.in -3
 .fi
 
 .nf
-.in 6
+.in +3
 +--+--+--+--+--+--+--+--+
 | . (reserved) .. | ST  |
 +--+--+--+--+--+--+--+--+
-.in 3
+.in -3
 .fi
 
 ST: (STATUS) Health status of the checked state
 
 .nf
-.in 6
+.in +3
 [ 00 ]  (0)  OK - state is healthy
 [ 01 ]  (1)  WARNING - state is pre-failure
 [ 10 ]  (2)  CRITICAL - state is not healthy
 [ 11 ]  (3)  ERROR - error occurred detecting state
-.in 3
+.in -3
 .fi
 
 .ti 0
 4.2.2.6  EVENT
 
 .nf
-.in 6
+.in +3
 1 (string/*)    Qualified name of the event
 1 (tstamp/64)   Time event occurred
 1 (string/*)    Additional descriptive data about the event
-.in 3
+.in -3
 .fi
 
 .nf
-.in 6
+.in +3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
-.in 3
+.in -3
 .fi
 
 .ti 0
 4.2.2.7  FACT
 
 .nf
-.in 6
+.in +3
 1 (string/*)    Qualified name of the fact
 1 (string/*)    Value of fact
-.in 3
+.in -3
 .fi
 
 .nf
-.in 6
+.in +3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
-.in 3
+.in -3
 .fi
 
 .ti 0
@@ -860,11 +860,11 @@ A Bogon Frame is any PDU data frame that meets any or all of the following
 criteria:
 
 .nf
-.in 7
+.in +4
 1. Unrecognized value for the TYPE field
 2. Incorrect LENGTH value, given the TYPE value (per 4.1.2.3.1)
 3. Short Frames, where LENGTH is larger than the remainder of the frame
-.in 3
+.in -4
 .fi
 
 Any PDU found to have a Bogon Frame MUST be considered a Bogon PDU,
@@ -877,11 +877,11 @@ In addition to the previous rules for Bogon PDU detection, a PDU MUST be
 considered a Bogon if:
 
 .nf
-.in 7
+.in +4
 1. The number of frames does not match the requirements of the OPCODE
 2. The types of frames do not match the requirements of the OPCODE
 3. The DATATYPE is invalid per the definition of the OPCODE
-.in 3
+.in -4
 .fi
 
 Furthermore, OPCODEs are free to mandate that a PDU be considered a Bogon
