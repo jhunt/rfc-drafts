@@ -1,4 +1,4 @@
-.\" vim:tw=76:ft=nroff
+.\" vim:tw=76:ft=nroff:ff=unix
 .pl 10.0i
 .po 0
 .ll 7.2i
@@ -382,15 +382,15 @@ over UDP.  Each PDU consists of a HEADER and one or more FRAMEs.
 
 .in 6
 .nf
-+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
++-----------------------------------------------+
 |                    HEADER                     |
-+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
++-----------------------------------------------+
 |                   FRAME #1                    |
-+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
++-----------------------------------------------+
 |                      ...                      |
-+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
++-----------------------------------------------+
 |                   FRAME #N                    |
-+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
++-----------------------------------------------+
 .fi
 .in 3
 
@@ -405,12 +405,14 @@ The HEADER is exactly 32-bits long:
 
 .in 6
 .nf
-    0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
-  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-0 |  VERSION  |  OPCODE   |         FLAGS         |
-  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-1 |                  DATATYPE                     |
-  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+ 0                             1
+ 0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
++--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+|  VERSION  |  OPCODE   |         FLAGS         |
++--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+|                  DATATYPE                     |
++--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 .fi
 .in 3
 
@@ -493,6 +495,8 @@ small, fixed-size 16-byte metadata header.
 
 .in 8
 .nf
+ 0                             1
+ 0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 |FF|  TYPE  |          LENGTH                   |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -645,13 +649,9 @@ and auxiliary data to the aggregator(s).
 The only applicable DATATYPE values for this opcode are:
 
 .nf
-.in 7
-1. SAMPLE
-2. TALLY
-3. DELTA
-4. STATE
-5. EVENT
-6. FACT
+.in 8
+SAMPLE      TALLY        DELTA
+STATE       EVENT        FACT
 .in 3
 .fi
 
@@ -843,11 +843,11 @@ A Bogon Header is any PDU header that meets any or all of the following
 criteria:
 
 .nf
-.in 7
+.in +4
 1. Unrecognized value for the VERSION field
 2. Unrecognized value for the OPCODE field
 3. Unrecognized value for the DATATYPE field
-.in 3
+.in -4
 .fi
 
 Any PDU found to have a Bogon Header MUST be considered a Bogon PDU,
