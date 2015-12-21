@@ -419,11 +419,11 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
    qualified names may be lexically different but semantically
    equivalent.
 
-   Two qualified names are equivalent if they are byte‐for‐byte equal
-   after the following normalizing transformations:
 
-       1. remove optional whitespace around key/value delimiter ("=")
-       2. remove optional whitespace around key/value pairs
+
+
+
+
 
 
 
@@ -438,6 +438,11 @@ J. Hunt                   Expires June 3, 2016                  [Page 7]
 INTERNET DRAFT                    TSDP                  December 1, 2015
 
 
+   Two qualified names are equivalent if they are byte‐for‐byte equal
+   after the following normalizing transformations:
+
+       1. remove optional whitespace around key/value delimiter ("=")
+       2. remove optional whitespace around key/value pairs
        3. normalize case of keys
        4. reorder key/value pairs by sorting keys lexically
 
@@ -445,20 +450,15 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
    The following Qualified names are equivalent:
 
-     A) host=foo.example.com,type=cpu,CPU=0
-     B) host=foo.example.com, type=cpu, CPU=0
-     C) host=foo.example.com, TYPE=cpu, cpu=0
-     D) type=cpu, CPU=0, host=foo.example.com
-     E) type = cpu,   CPU = 0,    host = foo.example.com
+       A) host=foo.example.com,type=cpu,CPU=0
+       B) host=foo.example.com, type=cpu, CPU=0
+       C) host=foo.example.com, TYPE=cpu, cpu=0
+       D) type=cpu, CPU=0, host=foo.example.com
+       E) type = cpu,   CPU = 0,    host = foo.example.com
 
    A and B are equivalent per rule #2.  B and C are equivalent per rule
    #3.  C and D are equivalent per rule #4.  D and E are equivalent per
    rule #4 (ordering key/value pairs before comparison)
-
-
-
-
-
 
 
 

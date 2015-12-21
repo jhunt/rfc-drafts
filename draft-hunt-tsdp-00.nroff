@@ -314,6 +314,7 @@ for purposes of aggregation and data analysis.  However, because of
 whitespace and re-ordering of key-value pairs, two qualified names may be
 lexically different but semantically equivalent.
 
+.ne 7
 Two qualified names are equivalent if they are byte-for-byte equal after the
 following normalizing transformations:
 
@@ -329,16 +330,17 @@ following normalizing transformations:
 .ti 0
 3.3  Examples of Equivalence
 
+.ne 7
 The following Qualified names are equivalent:
 
 .nf
-.in +2
+.in +4
 A) host=foo.example.com,type=cpu,CPU=0
 B) host=foo.example.com, type=cpu, CPU=0
 C) host=foo.example.com, TYPE=cpu, cpu=0
 D) type=cpu, CPU=0, host=foo.example.com
 E) type = cpu,   CPU = 0,    host = foo.example.com
-.in -2
+.in -4
 .fi
 
 A and B are equivalent per rule #2.  B and C are equivalent per rule #3.  C
@@ -570,6 +572,7 @@ protocol data unit that MUST be ignored by conforming implementations.
 .ti 0
 4.2.1  Malformed Headers
 
+.ne 6
 A Malformed Header is any PDU header that meets any or all of the following
 criteria:
 
@@ -587,6 +590,7 @@ regardless of whether or not its data frames are well-formed.
 .ti 0
 4.2.2  Malformed Frames
 
+.ne 6
 A Malformed Frame is any PDU data frame that meets any or all of the following
 criteria:
 
@@ -604,6 +608,7 @@ regardless of whether the header, or other data frames are well-formed.
 .ti 0
 4.3.3  Additional Rules
 
+.ne 6
 In addition to the previous rules for Bogon detection, a PDU MUST be
 considered a Bogon if:
 
