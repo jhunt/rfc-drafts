@@ -86,69 +86,44 @@ Simplified BSD License.
 
 
 
-.\" \# TD4  -- Set TOC depth by altering this value (TD5 = depth 5)
+.\" \# TD3  -- Set TOC depth by altering this value (TD5 = depth 5)
 .\" \# TOC  -- Beginning of auto updated Table of Contents
 .in 0
 Table of Contents
 
 .nf
-   1  Introduction  . . . . . . . . . . . . . . . . . . . . . . . . .  4
-     1.1  Terminology . . . . . . . . . . . . . . . . . . . . . . . .  4
-   2  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . . .  5
-     2.1  Collected Data  . . . . . . . . . . . . . . . . . . . . . .  5
-       2.1.1  Measurements  . . . . . . . . . . . . . . . . . . . . .  5
-       2.1.2  Events  . . . . . . . . . . . . . . . . . . . . . . . .  5
-       2.1.3  Keys  . . . . . . . . . . . . . . . . . . . . . . . . .  5
-       2.1.4  States  . . . . . . . . . . . . . . . . . . . . . . . .  5
-     2.2  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  5
-   3  Qualified Names . . . . . . . . . . . . . . . . . . . . . . . .  6
-     3.1  ABNF Grammar  . . . . . . . . . . . . . . . . . . . . . . .  6
-     3.2  Equivalance and Comparison  . . . . . . . . . . . . . . . .  6
-       3.2.1  Whitespace Normalization  . . . . . . . . . . . . . . .  7
-       3.2.2  Order Normalization . . . . . . . . . . . . . . . . . .  7
-       3.2.1  Normalization of Qualified Names  . . . . . . . . . . .  7
-       3.2.2  Concrete Matching of Qualified Names  . . . . . . . . .  7
-       3.2.3  Partial Matching of Qualified Names . . . . . . . . . .  7
-   4  Wire Protocol . . . . . . . . . . . . . . . . . . . . . . . . .  8
-     4.1  PDU Format  . . . . . . . . . . . . . . . . . . . . . . . .  8
-       4.1.1  PDU Header Format . . . . . . . . . . . . . . . . . . .  8
-         4.1.1.1  VERSION Field . . . . . . . . . . . . . . . . . . .  8
-         4.1.1.2  OPCODE Field  . . . . . . . . . . . . . . . . . . .  9
-         4.1.1.3  FLAGS Field . . . . . . . . . . . . . . . . . . . .  9
-         4.1.1.4  DATATYPE Field  . . . . . . . . . . . . . . . . . .  9
-       4.1.2  PDU Frame Format  . . . . . . . . . . . . . . . . . . .  9
-         4.1.2.1  FF Field  . . . . . . . . . . . . . . . . . . . . . 10
-         4.1.2.2  TYPE Field  . . . . . . . . . . . . . . . . . . . . 10
-         4.1.2.3  LENGTH Field  . . . . . . . . . . . . . . . . . . . 10
-     4.2  PDU Specification . . . . . . . . . . . . . . . . . . . . . 11
-       4.2.1  HEARTBEAT PDU . . . . . . . . . . . . . . . . . . . . . 11
-       4.2.2  SUBMIT PDU  . . . . . . . . . . . . . . . . . . . . . . 11
-         4.2.2.1  SUBMIT SAMPLE . . . . . . . . . . . . . . . . . . . 11
-         4.2.2.2  SUBMIT TALLY  . . . . . . . . . . . . . . . . . . . 11
-         4.2.2.3  SUBMIT DELTA  . . . . . . . . . . . . . . . . . . . 11
-         4.2.2.4  SUBMIT STATE  . . . . . . . . . . . . . . . . . . . 11
-         4.2.2.5  SUBMIT EVENT  . . . . . . . . . . . . . . . . . . . 11
-         4.2.2.6  SUBMIT FACT  . . . . . . . . . . . . . . . . . . . . 11
-       4.2.3  BROADCAST PDU . . . . . . . . . . . . . . . . . . . . . 11
-         4.2.4.1  BROADCAST SAMPLE  . . . . . . . . . . . . . . . . . 11
-         4.2.4.2  BROADCAST TALLY . . . . . . . . . . . . . . . . . . 11
-         4.2.4.3  BROADCAST DELTA . . . . . . . . . . . . . . . . . . 11
-         4.2.4.4  BROADCAST STATE . . . . . . . . . . . . . . . . . . 11
-         4.2.4.5  BROADCAST EVENT . . . . . . . . . . . . . . . . . . 12
-         4.2.4.6  BROADCAST FACT . . . . . . . . . . . . . . . . . . . 12
-       4.2.4  FORGET PDU  . . . . . . . . . . . . . . . . . . . . . . 12
-         4.2.4.1  FORGET SAMPLE . . . . . . . . . . . . . . . . . . . 12
-         4.2.4.2  FORGET TALLY  . . . . . . . . . . . . . . . . . . . 12
-         4.2.4.3  FORGET DELTA  . . . . . . . . . . . . . . . . . . . 12
-         4.2.4.4  FORGET STATE  . . . . . . . . . . . . . . . . . . . 12
-       4.2.5  REBROADCAST PDU . . . . . . . . . . . . . . . . . . . . 12
-       4.2.6  SUBSCRIBE PDU . . . . . . . . . . . . . . . . . . . . . 12
-   5  Security Considerations . . . . . . . . . . . . . . . . . . . . 13
-   6  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 13
-   7  References  . . . . . . . . . . . . . . . . . . . . . . . . . . 13
-     7.1  Normative References  . . . . . . . . . . . . . . . . . . . 13
-     7.2  Informative References  . . . . . . . . . . . . . . . . . . 13
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 13
+   1  Introduction  . . . . . . . . . . . . . . . . . . . . . . . . .  3
+     1.1  Terminology . . . . . . . . . . . . . . . . . . . . . . . .  3
+   2  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . . .  4
+     2.1  Collected Data  . . . . . . . . . . . . . . . . . . . . . .  4
+       2.1.1  Continuous Data . . . . . . . . . . . . . . . . . . . .  4
+       2.1.2  Non-continuous Data . . . . . . . . . . . . . . . . . .  5
+   3  Qualified Names . . . . . . . . . . . . . . . . . . . . . . . .  7
+     3.1  ABNF Grammar  . . . . . . . . . . . . . . . . . . . . . . .  7
+     3.2  Equivalance and Comparison  . . . . . . . . . . . . . . . .  7
+     3.3  Examples of Equivalence . . . . . . . . . . . . . . . . . .  8
+   4  Wire Protocol . . . . . . . . . . . . . . . . . . . . . . . . .  9
+     4.1  PDU Format  . . . . . . . . . . . . . . . . . . . . . . . .  9
+       4.1.1  PDU Header Format . . . . . . . . . . . . . . . . . . .  9
+       4.1.2  PDU Frame Format  . . . . . . . . . . . . . . . . . . . 10
+     4.2  Bogons  . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+       4.2.1  Malformed Headers . . . . . . . . . . . . . . . . . . . 12
+       4.2.2  Malformed Frames  . . . . . . . . . . . . . . . . . . . 13
+       4.3.3  Additional Rules  . . . . . . . . . . . . . . . . . . . 13
+       4.3.4  Handling Bogons . . . . . . . . . . . . . . . . . . . . 13
+     4.3  PDU Specification . . . . . . . . . . . . . . . . . . . . . 14
+       4.3.1  HEARTBEAT PDU . . . . . . . . . . . . . . . . . . . . . 14
+       4.3.2  SUBMIT PDU  . . . . . . . . . . . . . . . . . . . . . . 14
+       4.3.3  BROADCAST PDU . . . . . . . . . . . . . . . . . . . . . 16
+       4.3.4  FORGET PDU  . . . . . . . . . . . . . . . . . . . . . . 16
+       4.3.5  REBROADCAST PDU . . . . . . . . . . . . . . . . . . . . 17
+       4.3.6  SUBSCRIBE PDU . . . . . . . . . . . . . . . . . . . . . 17
+   5  Security Considerations . . . . . . . . . . . . . . . . . . . . 18
+   6  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 18
+   7  References  . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+     7.1  Normative References  . . . . . . . . . . . . . . . . . . . 18
+     7.2  Informative References  . . . . . . . . . . . . . . . . . . 18
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 18
 .fi
 .in 3
 
@@ -586,12 +561,80 @@ of TSDP as a protocol for building monitoring systems.
 This upper limit does not hinder fixed-size frame types like UINT, FLOAT,
 TSTAMP and NIL.
 
-.bp
 .ti 0
-4.2  PDU Specification
+4.2  Bogons
+
+A Bogon is a malformed, internally-inconsistent or otherwise suspicious
+protocol data unit that MUST be ignored by conforming implementations.
 
 .ti 0
-4.2.1  HEARTBEAT PDU
+4.2.1  Malformed Headers
+
+A Malformed Header is any PDU header that meets any or all of the following
+criteria:
+
+.nf
+.in +4
+1. Unrecognized value for the VERSION field
+2. Unrecognized value for the OPCODE field
+3. Unrecognized value for the DATATYPE field
+.in -4
+.fi
+
+Any PDU found to have a Malformed Header MUST be considered a Bogon,
+regardless of whether or not its data frames are well-formed.
+
+.ti 0
+4.2.2  Malformed Frames
+
+A Malformed Frame is any PDU data frame that meets any or all of the following
+criteria:
+
+.nf
+.in +4
+1. Unrecognized value for the TYPE field
+2. Incorrect LENGTH value, given the TYPE value (per 4.1.2.3.1)
+3. Short Frames, where LENGTH is larger than the remainder of the frame
+.in -4
+.fi
+
+Any PDU found to have a Malformed Frame MUST be considered a Bogon,
+regardless of whether the header, or other data frames are well-formed.
+
+.ti 0
+4.3.3  Additional Rules
+
+In addition to the previous rules for Bogon detection, a PDU MUST be
+considered a Bogon if:
+
+.nf
+.in +4
+1. The number of frames does not match the requirements of the OPCODE
+2. The types of frames do not match the requirements of the OPCODE
+3. The DATATYPE is invalid per the definition of the OPCODE
+.in -4
+.fi
+
+Furthermore, OPCODEs are free to mandate that a PDU be considered a Bogon
+based on semantic rules applied to the contents of data frames, flags
+and more.
+
+.ti 0
+4.3.4  Handling Bogons
+
+Conforming implementations MUST read and discard any Bogon.
+All constituent data frames MUST be read and discarded, and action MUST NOT
+be taken in response to the PDU.
+
+Implementations MAY log such failures, to assist administrators and system
+designers in troubleshooting resultant data loss and other issues.
+.bp
+
+.ti 0
+4.3  PDU Specification
+
+.ti 0
+4.3.1  HEARTBEAT PDU
 
 Clients submitting data to the bolo core may also opt to send HEARTBEAT
 packets that identify how many UDP packets have been transmitted by the
@@ -602,7 +645,7 @@ received from the sender.
 Packets are tracked based on the tuple (sender-ip, sender-port).
 
 .ti 0
-4.2.1.1  Applicable DATATYPEs
+4.3.1.1  Applicable DATATYPEs
 
 None.
 
@@ -610,7 +653,7 @@ If the DATATYPE field is not set to all zeroes, the PDU must be considered a
 Bogon PDU.
 
 .ti 0
-4.2.1.2  Data Frames
+4.3.1.2  Data Frames
 
 Each HEARTBEAT PDU MUST consist of exactly two data frames, a TSTAMP frame
 which indicates when the measurement was taken, followed by a UINT/64 frame
@@ -624,7 +667,7 @@ that contains the number of packets transmitted so far:
 .fi
 
 .ti 0
-4.2.1.3  Flags
+4.3.1.3  Flags
 
 .nf
 .in +3
@@ -638,13 +681,13 @@ Ro (ROLLOVER) is a 1-bit boolean flag that indicates whether or not the
 packet value (frame 2) has rolled over since the last submission.
 
 .ti 0
-4.2.2  SUBMIT PDU
+4.3.2  SUBMIT PDU
 
 The SUBMIT opcode allows client systems to provide measurement, state
 and auxiliary data to the aggregator(s).
 
 .ti 0
-4.2.2.1  Applicable DATATYPEs
+4.3.2.1  Applicable DATATYPEs
 
 The only applicable DATATYPE values for this opcode are:
 
@@ -663,7 +706,7 @@ FLAGS field depends on the DATATYPE in use.  These will be specified in the
 following subsections.
 
 .ti 0
-4.2.2.2  SAMPLE
+4.3.2.2  SAMPLE
 
 .nf
 .in +3
@@ -683,7 +726,7 @@ following subsections.
 .fi
 
 .ti 0
-4.2.2.3  TALLY
+4.3.2.3  TALLY
 
 .nf
 .in +3
@@ -703,7 +746,7 @@ following subsections.
 .fi
 
 .ti 0
-4.2.2.4  DELTA
+4.3.2.4  DELTA
 
 .nf
 .in +3
@@ -722,7 +765,7 @@ following subsections.
 .fi
 
 .ti 0
-4.2.2.5  STATE
+4.3.2.5  STATE
 
 .nf
 .in +3
@@ -752,7 +795,7 @@ ST: (STATUS) Health status of the checked state
 .fi
 
 .ti 0
-4.2.2.6  EVENT
+4.3.2.6  EVENT
 
 .nf
 .in +3
@@ -771,7 +814,7 @@ ST: (STATUS) Health status of the checked state
 .fi
 
 .ti 0
-4.2.2.7  FACT
+4.3.2.7  FACT
 
 .nf
 .in +3
@@ -789,114 +832,46 @@ ST: (STATUS) Health status of the checked state
 .fi
 
 .ti 0
-4.2.3  BROADCAST PDU
+4.3.3  BROADCAST PDU
 
 .ti 0
-4.2.4.1  BROADCAST SAMPLE
+4.3.4.1  BROADCAST SAMPLE
 
 .ti 0
-4.2.4.2  BROADCAST TALLY
+4.3.4.2  BROADCAST TALLY
 
 .ti 0
-4.2.4.3  BROADCAST DELTA
+4.3.4.3  BROADCAST DELTA
 
 .ti 0
-4.2.4.4  BROADCAST STATE
+4.3.4.4  BROADCAST STATE
 
 .ti 0
-4.2.4.5  BROADCAST EVENT
+4.3.4.5  BROADCAST EVENT
 
 .ti 0
-4.2.4.6  BROADCAST FACT
+4.3.4.6  BROADCAST FACT
 
 .ti 0
-4.2.4  FORGET PDU
+4.3.4  FORGET PDU
 
 .ti 0
-4.2.4.1  FORGET SAMPLE
+4.3.4.1  FORGET SAMPLE
 
 .ti 0
-4.2.4.2  FORGET TALLY
+4.3.4.2  FORGET TALLY
 
 .ti 0
-4.2.4.3  FORGET DELTA
+4.3.4.3  FORGET DELTA
 
 .ti 0
-4.2.4.4  FORGET STATE
+4.3.4.4  FORGET STATE
 
 .ti 0
-4.2.5  REBROADCAST PDU
+4.3.5  REBROADCAST PDU
 
 .ti 0
-4.2.6  SUBSCRIBE PDU
-
-.ti 0
-4.3  Bogons
-
-A Bogon is a malformed, internally-inconsistent or otherwise suspicious
-protocol data unit that MUST be ignored by conforming implementations.
-
-.ti 0
-4.3.1  Bogon Headers
-
-A Bogon Header is any PDU header that meets any or all of the following
-criteria:
-
-.nf
-.in +4
-1. Unrecognized value for the VERSION field
-2. Unrecognized value for the OPCODE field
-3. Unrecognized value for the DATATYPE field
-.in -4
-.fi
-
-Any PDU found to have a Bogon Header MUST be considered a Bogon PDU,
-regardless of whether or not its data frames are well-formed.
-
-.ti 0
-4.3.2  Bogon Frames
-
-A Bogon Frame is any PDU data frame that meets any or all of the following
-criteria:
-
-.nf
-.in +4
-1. Unrecognized value for the TYPE field
-2. Incorrect LENGTH value, given the TYPE value (per 4.1.2.3.1)
-3. Short Frames, where LENGTH is larger than the remainder of the frame
-.in -4
-.fi
-
-Any PDU found to have a Bogon Frame MUST be considered a Bogon PDU,
-regardless of whether the header, or other data frames are well-formed.
-
-.ti 0
-4.3.3  Additional Rules
-
-In addition to the previous rules for Bogon PDU detection, a PDU MUST be
-considered a Bogon if:
-
-.nf
-.in +4
-1. The number of frames does not match the requirements of the OPCODE
-2. The types of frames do not match the requirements of the OPCODE
-3. The DATATYPE is invalid per the definition of the OPCODE
-.in -4
-.fi
-
-Furthermore, OPCODEs are free to mandate that a PDU be considered a Bogon
-PDU based on semantic rules applied to the contents of data frames, flags
-and more.
-
-.ti 0
-4.3.4  Handling Bogon PDUs
-
-Conforming implementations MUST read and discard any Bogon PDU.
-All constituent data frames MUST be read and discarded, and action MUST NOT
-be taken in response to the PDU.
-
-Implementations MAY log such failures, to assist administrators and system
-designers in troubleshooting resultant data loss and other issues.
+4.3.6  SUBSCRIBE PDU
 
 .bp
 .ti 0
