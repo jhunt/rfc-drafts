@@ -3,4 +3,4 @@ clean:
 	rm -f *.txt
 
 %.txt: %.nroff
-	nroff -ms $+ >$@
+	nroff -ms $+ | ./fix.pl >$@
