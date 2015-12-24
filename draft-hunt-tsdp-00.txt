@@ -93,8 +93,8 @@ Table of Contents
      4.2  Bogons  . . . . . . . . . . . . . . . . . . . . . . . . . . 12
        4.2.1  Malformed Headers . . . . . . . . . . . . . . . . . . . 12
        4.2.2  Malformed Frames  . . . . . . . . . . . . . . . . . . . 13
-       4.3.3  Additional Rules  . . . . . . . . . . . . . . . . . . . 13
-       4.3.4  Handling Bogons . . . . . . . . . . . . . . . . . . . . 13
+       4.2.3  Additional Rules  . . . . . . . . . . . . . . . . . . . 13
+       4.2.4  Handling Bogons . . . . . . . . . . . . . . . . . . . . 13
      4.3  PDU Specification . . . . . . . . . . . . . . . . . . . . . 14
        4.3.1  HEARTBEAT PDU . . . . . . . . . . . . . . . . . . . . . 14
        4.3.2  SUBMIT PDU  . . . . . . . . . . . . . . . . . . . . . . 14
@@ -764,7 +764,7 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
    regardless of whether the header, or other data frames are well‐
    formed.
 
-4.3.3  Additional Rules
+4.2.3  Additional Rules
 
    In addition to the previous rules for Bogon detection, a PDU MUST be
    considered a Bogon if:
@@ -777,7 +777,7 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
    Bogon based on semantic rules applied to the contents of data frames,
    flags and more.
 
-4.3.4  Handling Bogons
+4.2.4  Handling Bogons
 
    Conforming implementations MUST read and discard any Bogon.  All
    constituent data frames MUST be read and discarded, and action MUST
