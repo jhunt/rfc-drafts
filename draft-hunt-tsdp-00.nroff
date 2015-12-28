@@ -174,16 +174,18 @@ file system to determine how much CPU time has been used, a scheduled task
 that queries network devices via SNMP for traffic and memory statistics, or
 a log processor that extracts event data from syslog streams.
 
-Subscribers are likewise diverse, providing wide-ranging functionality like
-event correlation, problem notification, scale-up / scale-down provisioning,
-data visualization, and more.
+Subscribers can be likewise diverse, providing event correlation, problem
+notification, scale-up / scale-down provisioning, data visualization, and
+more.
 
-Decoupling these three components of a monitoring system -- collector,
-aggregator and subscriber -- allows each part to evolve independently, and
-affords system designers the flexibility they need in both initial
-implementation and future extensibility.  TSDP provides a well-specified
-protocol to ensure that these decoupled pieces and parts still function
-correctly, as a cohesive whole.
+Decoupling these three monitoring system components -- collector,
+aggregator and subscriber -- allows each to evolve independently, and
+affords system designers more flexibility in initial implementation and
+future extensibility.  TSDP provides a protocol to ensure that the parts
+still function correctly, as a cohesive whole.
+
+.\" FIXME - might want a glossary, for stuff defining terms like
+.\"         measurement, metric, data, series, etc.
 
 .ti 0
 2.1  Collected Data
@@ -194,6 +196,7 @@ purpose and associated semantics.
 .ti 0
 2.1.1  Continuous Data
 
+
 .ti 0
 2.1.1.1  Sample Measurements
 
@@ -201,16 +204,16 @@ Samples represent discrete measurements of a continuous value.  No
 calculations or rate transformations will be done on the individual samples.
 Aggregation and summary transformations may still be performed.
 
-The amount of server memory available for allocation is a prime example of a
-Sample measurement: each measurement is independent of all previous and
-future measurements.
+Available server memory is a Sample measurement;
+each reading is independent of all previous and
+future readings.
 
 .ti 0
 2.1.1.2  Delta Measurements
 
 Often, measurements are only supplied as absolute, ever-increasing counters.
-In SNMP network monitoring, traffic isn't tracked as a rate per unit of time
--- instead, the number of packets or bytes sent so far is stored as a 64-bit
+In SNMP network monitoring, traffic isn't tracked as a rate per unit of
+time; instead, the number of packets or bytes sent so far is stored as a 64-bit
 unsigned counter.  Every time the device sends another packet or byte, the
 counter is increased.
 
@@ -263,6 +266,9 @@ TSDP accommodates this need via Facts.  Each Fact represents some piece of
 information about monitored systems.  They are tracked by the aggregators,
 and fact values are updated when new values are submitted.  Facts do not
 expire (and are therefore non-continuous).
+
+.\" FIXME: Talk about aggregation and windows in SS 2.2
+.\" FIXME: Talk about broadcast and subscriptions in SS 2.3
 
 .bp
 .ti 0

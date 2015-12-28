@@ -208,16 +208,15 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
    memory statistics, or a log processor that extracts event data from
    syslog streams.
 
-   Subscribers are likewise diverse, providing wide‐ranging
-   functionality like event correlation, problem notification, scale‐up
-   / scale‐down provisioning, data visualization, and more.
+   Subscribers can be likewise diverse, providing event correlation,
+   problem notification, scale‐up / scale‐down provisioning, data
+   visualization, and more.
 
-   Decoupling these three components of a monitoring system ‐‐
-   collector, aggregator and subscriber ‐‐ allows each part to evolve
-   independently, and affords system designers the flexibility they need
-   in both initial implementation and future extensibility.  TSDP
-   provides a well‐specified protocol to ensure that these decoupled
-   pieces and parts still function correctly, as a cohesive whole.
+   Decoupling these three monitoring system components ‐‐ collector,
+   aggregator and subscriber ‐‐ allows each to evolve independently, and
+   affords system designers more flexibility in initial implementation
+   and future extensibility.  TSDP provides a protocol to ensure that
+   the parts still function correctly, as a cohesive whole.
 
 2.1  Collected Data
 
@@ -233,11 +232,12 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
    samples.  Aggregation and summary transformations may still be
    performed.
 
-   The amount of server memory available for allocation is a prime
-   example of a Sample measurement: each measurement is independent of
-   all previous and future measurements.
+   Available server memory is a Sample measurement; each reading is
+   independent of all previous and future readings.
 
 2.1.1.2  Delta Measurements
+
+   Often, measurements are only supplied as absolute, ever‐increasing
 
 
 
@@ -252,9 +252,8 @@ J. Hunt                   Expires June 3, 2016                  [Page 4]
 INTERNET DRAFT                    TSDP                  December 1, 2015
 
 
-   Often, measurements are only supplied as absolute, ever‐increasing
    counters.  In SNMP network monitoring, traffic isn’t tracked as a
-   rate per unit of time ‐‐ instead, the number of packets or bytes sent
+   rate per unit of time; instead, the number of packets or bytes sent
    so far is stored as a 64‐bit unsigned counter.  Every time the device
    sends another packet or byte, the counter is increased.
 
@@ -300,6 +299,7 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
    systems become more dynamic, this need grows stronger.
 
    TSDP accommodates this need via Facts.  Each Fact represents some
+   piece of information about monitored systems.  They are tracked by
 
 
 
@@ -314,9 +314,9 @@ J. Hunt                   Expires June 3, 2016                  [Page 5]
 INTERNET DRAFT                    TSDP                  December 1, 2015
 
 
-   piece of information about monitored systems.  They are tracked by
    the aggregators, and fact values are updated when new values are
    submitted.  Facts do not expire (and are therefore non‐continuous).
+
 
 
 
