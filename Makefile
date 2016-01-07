@@ -3,4 +3,6 @@ clean:
 	rm -f *.txt
 
 %.txt: %.nroff
-	nroff -ms $+ | ./fix.pl >$@
+	cat $< | tr -d '\r' | sed -e 's/ *$$//' >.$<
+	mv .$< $<
+	nroff -ms $< | ./fix.pl >$@
