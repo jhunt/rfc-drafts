@@ -267,7 +267,14 @@ information about monitored systems.  They are tracked by the aggregators,
 and fact values are updated when new values are submitted.  Facts do not
 expire (and are therefore non-continuous).
 
+.ti 0
+2.2  Aggregation
+
 .\" FIXME: Talk about aggregation and windows in SS 2.2
+
+.ti 0
+2.3  Broadcast and Subscription
+
 .\" FIXME: Talk about broadcast and subscriptions in SS 2.3
 
 .bp
