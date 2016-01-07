@@ -852,44 +852,373 @@ ST: (STATUS) Health status of the checked state
 .ti 0
 4.3.3  BROADCAST PDU
 
-.ti 0
-4.3.4.1  BROADCAST SAMPLE
+The BROADCAST opcode is used by aggregators to send disseminate information
+about the state of the world to interested, connected subscriber(s).
 
 .ti 0
-4.3.4.2  BROADCAST TALLY
+4.3.3.1  Applicable DATATYPEs
+
+The only applicable DATATYPE values for this opcode are:
+
+.nf
+.in +10
+SAMPLE      TALLY        DELTA
+STATE       EVENT        FACT
+.in -10
+.fi
+
+DATATYPE values cannot be combined.  Any PDUs found with multiple DATATYPE
+values set MSUT be considered Bogon PDUs.
+
+Composition of constituent data frames, as well as the semantics of the
+FLAGS field depends on the DATATYPE in use.  These will be specified in the
+following subsections.
 
 .ti 0
-4.3.4.3  BROADCAST DELTA
+4.3.4.2  SAMPLE
+
+.nf
+.in +3
+1 (string/*)    Qualified name of the sample set
+1 (tstamp/64)   Start of aggregation window
+1 (uint/32)     Aggregation window length (in milliseconds)
+1 (uint/16)     Number of measurements taken
+1 (float/64)    Population Minimum value
+1 (float/64)    Population Maximum value
+1 (float/64)    Population Mean value
+1 (float/64)    Population Median (50th percentile) value
+1 (float/64)    Population Standard Deviation
+.in -3
+.fi
+
+.nf
+.in +3
++--+--+--+--+--+--+--+--+
+| .... (reserved) ..... |
++--+--+--+--+--+--+--+--+
+.in -3
+.fi
 
 .ti 0
-4.3.4.4  BROADCAST STATE
+4.3.4.3  TALLY
+
+.nf
+.in +3
+1 (string/*)    Qualified name of the tally
+1 (tstamp/64)   Start of aggregation window
+1 (uint/32)     Aggregation window length (in milliseconds)
+1 (uint/64)     Value of Tally
+.in -3
+.fi
+
+.nf
+.in +3
++--+--+--+--+--+--+--+--+
+|Ro| ... (reserved) ... |
++--+--+--+--+--+--+--+--+
+.in -3
+.fi
+
+Ro: (ROLLOVER) 64-bit unsigned integer bounds rollover detected; the tally
+value wrapped around, naturally.
+
+.nf
+.in +3
+[ 0 ]  (0)  NO  - tally value has not rolled over; smaller value represents
+                  a reset of the original quantity to 0.
+
+[ 1 ]  (1)  YES - tally value has rolled over; smaller value represents an
+                  increase above the maximum value of a 64-bit unsigned
+                  integer.
+.in -3
+.fi
 
 .ti 0
-4.3.4.5  BROADCAST EVENT
+4.3.4.4  DELTA
+
+.nf
+.in +3
+1 (string/*)    Qualified name of the delta
+1 (tstamp/64)   Start of aggregation window
+1 (uint/32)     Aggregation window length (in milliseconds)
+1 (float/64)    Calculated delta change
+.in -3
+.fi
+
+.nf
+.in +3
++--+--+--+--+--+--+--+--+
+|  (reserved)  |  UNIT  |
++--+--+--+--+--+--+--+--+
+.in -3
+.fi
+
+UNIT: Unit time for calculated delta rate
+
+.nf
+.in +3
+[ 000 ]  (0)  UNKNOWN
+[ 001 ]  (1)  0.1s   (100 milliseconds)
+[ 010 ]  (2)  1s     (1 second)
+[ 011 ]  (3)  60s    (1 minute)
+[ 100 ]  (4)  3600s  (1 hour)
+[ 101 ]  (5)  86400s (1 day)
+  ...    ...  (reserved)
+[ 111 ]  (7)  (reserved)
+.fi
+.in -3
 
 .ti 0
-4.3.4.6  BROADCAST FACT
+4.3.4.5  STATE
+
+.nf
+.in +3
+1 (string/*)    Qualified name of the event
+1 (uint/32)     Heartbeat / Freshness window (in milliseconds)
+? (tstamp/64)   Previous State: time of check
+? (string/*)    Previous State: state description
+1 (tstamp/64)   Current State: time of check
+1 (string/*)    Current State: state description
+.in -3
+.fi
+
+.nf
+.in +3
++--+--+--+--+--+--+--+--+
+|Fr|Tr| ... | PSv | CSv |
++--+--+--+--+--+--+--+--+
+.in -3
+.fi
+
+Fr: (FRESHNESS) state check freshness state
+
+.nf
+.in +3
+[ 0 ]  (0)  STALE - no update received within window
+[ 1 ]  (1)  FRESH - update(s) received within window
+.in -3
+.fi
+
+Tr: (TRANSITION) is this a transition broadcast?
+
+.nf
+.in +3
+[ 0 ]  (0)  NO - no previous state data included
+[ 1 ]  (1)  YES - previous state data (Spr, etc.) included
+.in -3
+.fi
+
+PSv: (PREVIOUS STATUS) Last known fresh status
+
+.nf
+.in +3
+[ 00 ]  (0)  OK - state is healthy
+[ 01 ]  (1)  WARNING - state is pre-failure
+[ 10 ]  (2)  CRITICAL - state is not healthy
+[ 11 ]  (3)  ERROR - error occurred detecting state
+.in -3
+.fi
+
+CSv: (CURRENT STATUS) Current (possible stale) status
+
+.nf
+.in +3
+[ 00 ]  (0)  OK - state is healthy
+[ 01 ]  (1)  WARNING - state is pre-failure
+[ 10 ]  (2)  CRITICAL - state is not healthy
+[ 11 ]  (3)  ERROR - error occurred detecting state
+.in -3
+.fi
+
+.ti 0
+4.3.4.6  EVENT
+
+.nf
+.in +3
+1 (string/*)    Qualified name of the event
+1 (tstamp/64)   Time event occurred
+1 (string/*)    Additional descriptive data about the event
+.in -3
+.fi
+
+.nf
+.in +3
++--+--+--+--+--+--+--+--+
+| .... (reserved) ..... |
++--+--+--+--+--+--+--+--+
+.in -3
+.fi
+
+.ti 0
+4.3.4.7  FACT
+
+.nf
+.in +3
+1 (string/*)    Qualified name of the fact
+1 (string/*)    Value of fact
+.in -3
+.fi
+
+.nf
+.in +3
++--+--+--+--+--+--+--+--+
+| .... (reserved) ..... |
++--+--+--+--+--+--+--+--+
+.in -3
+.fi
 
 .ti 0
 4.3.4  FORGET PDU
 
-.ti 0
-4.3.4.1  FORGET SAMPLE
+The FORGET opcode is used by system operators to drop one or more
+measurements or states.
 
 .ti 0
-4.3.4.2  FORGET TALLY
+4.3.4.1  Applicable DATATYPEs
+
+The only applicable DATATYPE values for this opcode are:
+
+.nf
+.in +10
+SAMPLE      TALLY        DELTA
+STATE
+.in -10
+.fi
+
+DATATYPE values can be combined, meaning that they operate on any metric
+that matches at least one of the set DATATYPE values.
 
 .ti 0
-4.3.4.3  FORGET DELTA
+4.3.4.2  Data Frames
 
-.ti 0
-4.3.4.4  FORGET STATE
+All FORGET PDUs are identical in form and structure, with respect to
+consituent data frames and their semantics:
+
+.nf
+.in +3
+1 (string/*)    Qualified name, or name pattern (featuring globs)
+                of the measurement or state
+.in -3
+.fi
+
+Qualified names are matched using the Name Equivalency Rules (defined
+in Section 3.2).
+
+FLAGS are interpreted the same regardless of what DATATYPE values are set:
+
+.nf
+.in +3
++--+--+--+--+--+--+--+--+
+|Ig| ... (reserved) ... |
++--+--+--+--+--+--+--+--+
+.in -3
+.fi
+
+Ig: (IGNORE) How to handle future data submissions
+
+.nf
+.in +3
+[ 0 ]  (0)  NO  - ignore future data submissions
+[ 1 ]  (1)  YES - process future data submissions
+.in -3
+.fi
 
 .ti 0
 4.3.5  REBROADCAST PDU
 
+The REBROADCAST opcode is used by subscribers to request a full re-broadcast
+of the most recent aggregated metrics, states, events and facts.
+
+Note that EVENT data is fundamentally different from the other datatypes, in
+that EVENTs are complete and isolated (they do not get regular updates).
+Accordingly, the bolo core will buffer a certain number or timeframe of
+event data, and rebroadcast all items so buffered.
+
+The qualified name frame is required, but may be set to the full glob ("*")
+to elicit a re-broadcast of all known data.
+
+.ti 0
+4.3.5.1  Applicable DATATYPEs
+
+.nf
+.in +10
+SAMPLE      TALLY        DELTA
+STATE       EVENT        FACT
+.in -10
+.fi
+
+DATATYPE values can be combined, meaning that they operate on any metric
+that matches at least one of the set DATATYPE values.
+
+.ti 0
+4.3.5.2  Data Frames
+
+.nf
+.in +3
+1 (string/*)    Qualified name, or name pattern (featuring globs)
+                of the measurement, state, event or fact.
+.in -3
+.fi
+
+.nf
+.in +3
++--+--+--+--+--+--+--+--+
+| .... (reserved) ..... |
++--+--+--+--+--+--+--+--+
+.in -3
+.fi
+
 .ti 0
 4.3.6  SUBSCRIBE PDU
+
+The SUBSCRIBE opcode is used by subscribers to identify what subset of
+metrics, states, events and facts they are interested in receiving.  This
+allows a any subscriber to focus on a specific (possible very narrow) slice
+of the overall data, without wasting network bandwidth receiving BROADCAST
+packets it neither needs nor wants.
+
+If the `Un' flag is set, the SUBSCRIBE opcode has the opposite effect - it
+removes the matching data streams from the endpoint's subscriptions.
+
+.ti 0
+4.3.6.1  Applicable DATATYPEs
+
+.nf
+.in +10
+SAMPLE      TALLY        DELTA
+STATES      EVENT        FACT
+.in -10
+.fi
+
+DATATYPE values can be combined, meaning that they operate on any metric
+that matches at least one of the set DATATYPE values.
+
+.ti 0
+4.3.6.2  Data Frames
+
+.nf
+.in +3
+1 (string/*)    Qualified name, or name pattern (featuring globs)
+                of the measurement, state, event or fact.
+.in -3
+.fi
+
+.nf
+.in +3
++--+--+--+--+--+--+--+--+
+|Un| ... (reserved) ... |
++--+--+--+--+--+--+--+--+
+.in -3
+.fi
+
+Un: (UNSUBSCRIBE) whether or not to subscribe / unsubscribe
+
+.nf
+.in +3
+[ 0 ]  (0)  SUBSCRIBE - subscribe to the matching broadcasts
+[ 1 ]  (1)  UNSUBSCRIBE - unsubscribe from the matching broadcasts
+.in -3
+.fi
 
 .bp
 .ti 0
