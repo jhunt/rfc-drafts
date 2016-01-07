@@ -1370,12 +1370,12 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 5  Security Considerations
 
-   <Security considerations text>
+   None.
 
 
 6  IANA Considerations
 
-   <IANA considerations text>
+   None.
 
 
 7  References
