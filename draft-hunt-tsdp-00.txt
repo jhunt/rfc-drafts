@@ -103,13 +103,13 @@ Table of Contents
        4.3.3  BROADCAST PDU . . . . . . . . . . . . . . . . . . . . . 17
        4.3.4  FORGET PDU  . . . . . . . . . . . . . . . . . . . . . . 20
        4.3.5  REBROADCAST PDU . . . . . . . . . . . . . . . . . . . . 21
-       4.3.6  SUBSCRIBE PDU . . . . . . . . . . . . . . . . . . . . . 21
-   5  Security Considerations . . . . . . . . . . . . . . . . . . . . 23
-   6  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 23
-   7  References  . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-     7.1  Normative References  . . . . . . . . . . . . . . . . . . . 23
-     7.2  Informative References  . . . . . . . . . . . . . . . . . . 23
-   Authors’ Addresses . . . . . . . . . . . . . . . . . . . . . . . . 23
+       4.3.6  SUBSCRIBE PDU . . . . . . . . . . . . . . . . . . . . . 22
+   5  Security Considerations . . . . . . . . . . . . . . . . . . . . 24
+   6  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 24
+   7  References  . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+     7.1  Normative References  . . . . . . . . . . . . . . . . . . . 24
+     7.2  Informative References  . . . . . . . . . . . . . . . . . . 24
+   Authors’ Addresses . . . . . . . . . . . . . . . . . . . . . . . . 24
 
 
 
@@ -872,6 +872,9 @@ J. Hunt                   Expires July 9, 2016                 [Page 14]
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
+   A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE
+   value set MUST be considered Bogon PDUs.
+
    DATATYPE values cannot be combined.  Any PDUs found with multiple
    DATATYPE values set MUST be considered Bogon PDUs.
 
@@ -890,9 +893,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.2.2.2  Flags
 
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      | .... (reserved) ..... |
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+   None.
 
 4.3.2.3  TALLY
 
@@ -905,9 +906,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.2.3.2  Flags
 
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      | .... (reserved) ..... |
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+   None.
 
 4.3.2.4  DELTA
 
@@ -919,6 +918,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.2.4.2  Flags
 
+   None.
 
 
 
@@ -933,10 +933,6 @@ J. Hunt                   Expires July 9, 2016                 [Page 15]
 
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
-
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      | .... (reserved) ..... |
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
 
 4.3.2.5  STATE
 
@@ -969,9 +965,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.2.6.2  Flags
 
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      | .... (reserved) ..... |
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+   None.
 
 4.3.2.7  FACT
 
@@ -982,6 +976,12 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.2.7.2  Flags
 
+   None.
+
+4.3.3  BROADCAST PDU
+
+   The BROADCAST opcode is used by aggregators to send disseminate
+   information about the state of the world to interested, connected
 
 
 
@@ -996,14 +996,6 @@ J. Hunt                   Expires July 9, 2016                 [Page 16]
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      | .... (reserved) ..... |
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-
-4.3.3  BROADCAST PDU
-
-   The BROADCAST opcode is used by aggregators to send disseminate
-   information about the state of the world to interested, connected
    subscriber(s).
 
 4.3.3.1  Applicable DATATYPEs
@@ -1012,6 +1004,9 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
              SAMPLE      TALLY        DELTA
              STATE       EVENT        FACT
+
+   A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE
+   value set MUST be considered Bogon PDUs.
 
    DATATYPE values cannot be combined.  Any PDUs found with multiple
    DATATYPE values set MSUT be considered Bogon PDUs.
@@ -1036,13 +1031,18 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.4.2.2  Flags
 
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      | .... (reserved) ..... |
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+   None.
 
 4.3.4.3  TALLY
 
 4.3.4.3.1  Data Frames
+
+      1 (string/*)    Qualified name of the tally
+      1 (tstamp/64)   Start of aggregation window
+      1 (uint/32)     Aggregation window length (in milliseconds)
+      1 (uint/64)     Value of Tally
+
+4.3.4.3.2  Flags
 
 
 
@@ -1057,13 +1057,6 @@ J. Hunt                   Expires July 9, 2016                 [Page 17]
 
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
-
-      1 (string/*)    Qualified name of the tally
-      1 (tstamp/64)   Start of aggregation window
-      1 (uint/32)     Aggregation window length (in milliseconds)
-      1 (uint/64)     Value of Tally
-
-4.3.4.3.2  Flags
 
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       |Ro| ... (reserved) ... |
@@ -1106,6 +1099,13 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
       [ 111 ]  (7)  (reserved)
 
 4.3.4.5  STATE
+
+
+
+
+
+
+
 
 
 
@@ -1182,9 +1182,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 19]
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      | .... (reserved) ..... |
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+   None.
 
 4.3.4.7  FACT
 
@@ -1195,9 +1193,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.4.7.2  Flags
 
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      | .... (reserved) ..... |
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+   None.
 
 4.3.4  FORGET PDU
 
@@ -1211,13 +1207,13 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
              SAMPLE      TALLY        DELTA
              STATE
 
+   A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE
+   value set MUST be considered Bogon PDUs.
+
    DATATYPE values can be combined, meaning that they operate on any
    metric that matches at least one of the set DATATYPE values.
 
 4.3.4.2  Data Frames
-
-   All FORGET PDUs are identical in form and structure, with respect to
-   consituent data frames and their semantics:
 
       1 (string/*)    Qualified name, or name pattern (featuring globs)
                       of the measurement or state
@@ -1227,8 +1223,12 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.4.3  Flags
 
+   FLAGS are interpreted the same regardless of what DATATYPE values are
+   set:
 
-
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      |Ig| ... (reserved) ... |
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
 
 
 
@@ -1243,13 +1243,6 @@ J. Hunt                   Expires July 9, 2016                 [Page 20]
 
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
-
-   FLAGS are interpreted the same regardless of what DATATYPE values are
-   set:
-
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      |Ig| ... (reserved) ... |
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
 
    Ig: (IGNORE) How to handle future data submissions
 
@@ -1276,6 +1269,9 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
              SAMPLE      TALLY        DELTA
              STATE       EVENT        FACT
 
+   A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE
+   value set MUST be considered Bogon PDUs.
+
    DATATYPE values can be combined, meaning that they operate on any
    metric that matches at least one of the set DATATYPE values.
 
@@ -1286,12 +1282,16 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.5.3  Flags
 
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      | .... (reserved) ..... |
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+   None.
 
 4.3.6  SUBSCRIBE PDU
 
+   The SUBSCRIBE opcode is used by subscribers to identify what subset
+   of metrics, states, events and facts they are interested in
+   receiving.  This allows a any subscriber to focus on a specific
+   (possible very narrow) slice of the overall data, without wasting
+   network bandwidth receiving BROADCAST packets it neither needs nor
+   wants.
 
 
 
@@ -1306,13 +1306,6 @@ J. Hunt                   Expires July 9, 2016                 [Page 21]
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
-   The SUBSCRIBE opcode is used by subscribers to identify what subset
-   of metrics, states, events and facts they are interested in
-   receiving.  This allows a any subscriber to focus on a specific
-   (possible very narrow) slice of the overall data, without wasting
-   network bandwidth receiving BROADCAST packets it neither needs nor
-   wants.
-
    If the ‘Un’ flag is set, the SUBSCRIBE opcode has the opposite effect
    ‐ it removes the matching data streams from the endpoint’s
    subscriptions.
@@ -1321,6 +1314,9 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
              SAMPLE      TALLY        DELTA
              STATES      EVENT        FACT
+
+   A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE
+   value set MUST be considered Bogon PDUs.
 
    DATATYPE values can be combined, meaning that they operate on any
    metric that matches at least one of the set DATATYPE values.
@@ -1340,6 +1336,10 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
       [ 0 ]  (0)  SUBSCRIBE ‐ subscribe to the matching broadcasts
       [ 1 ]  (1)  UNSUBSCRIBE ‐ unsubscribe from the matching broadcasts
+
+
+
+
 
 
 

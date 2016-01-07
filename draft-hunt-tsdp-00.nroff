@@ -119,13 +119,13 @@ Table of Contents
        4.3.3  BROADCAST PDU . . . . . . . . . . . . . . . . . . . . . 17
        4.3.4  FORGET PDU  . . . . . . . . . . . . . . . . . . . . . . 20
        4.3.5  REBROADCAST PDU . . . . . . . . . . . . . . . . . . . . 21
-       4.3.6  SUBSCRIBE PDU . . . . . . . . . . . . . . . . . . . . . 21
-   5  Security Considerations . . . . . . . . . . . . . . . . . . . . 23
-   6  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 23
-   7  References  . . . . . . . . . . . . . . . . . . . . . . . . . . 23
-     7.1  Normative References  . . . . . . . . . . . . . . . . . . . 23
-     7.2  Informative References  . . . . . . . . . . . . . . . . . . 23
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 23
+       4.3.6  SUBSCRIBE PDU . . . . . . . . . . . . . . . . . . . . . 22
+   5  Security Considerations . . . . . . . . . . . . . . . . . . . . 24
+   6  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 24
+   7  References  . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+     7.1  Normative References  . . . . . . . . . . . . . . . . . . . 24
+     7.2  Informative References  . . . . . . . . . . . . . . . . . . 24
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 24
 .fi
 .in 3
 
@@ -720,6 +720,9 @@ STATE       EVENT        FACT
 .in -10
 .fi
 
+A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE value
+set MUST be considered Bogon PDUs.
+
 DATATYPE values cannot be combined.  Any PDUs found with multiple DATATYPE
 values set MUST be considered Bogon PDUs.
 
@@ -745,14 +748,7 @@ following subsections.
 .ti 0
 4.3.2.2.2  Flags
 
-.nf
-.in +3
-.ne 3
-+--+--+--+--+--+--+--+--+
-| .... (reserved) ..... |
-+--+--+--+--+--+--+--+--+
-.in -3
-.fi
+None.
 
 .ti 0
 4.3.2.3  TALLY
@@ -772,14 +768,7 @@ following subsections.
 .ti 0
 4.3.2.3.2  Flags
 
-.nf
-.in +3
-.ne 3
-+--+--+--+--+--+--+--+--+
-| .... (reserved) ..... |
-+--+--+--+--+--+--+--+--+
-.in -3
-.fi
+None.
 
 .ti 0
 4.3.2.4  DELTA
@@ -798,14 +787,7 @@ following subsections.
 .ti 0
 4.3.2.4.2  Flags
 
-.nf
-.in +3
-.ne 3
-+--+--+--+--+--+--+--+--+
-| .... (reserved) ..... |
-+--+--+--+--+--+--+--+--+
-.in -3
-.fi
+None.
 
 .ti 0
 4.3.2.5  STATE
@@ -861,14 +843,7 @@ ST: (STATUS) Health status of the checked state
 .ti 0
 4.3.2.6.2  Flags
 
-.nf
-.in +3
-.ne 3
-+--+--+--+--+--+--+--+--+
-| .... (reserved) ..... |
-+--+--+--+--+--+--+--+--+
-.in -3
-.fi
+None.
 
 .ti 0
 4.3.2.7  FACT
@@ -886,14 +861,7 @@ ST: (STATUS) Health status of the checked state
 .ti 0
 4.3.2.7.2  Flags
 
-.nf
-.in +3
-.ne 3
-+--+--+--+--+--+--+--+--+
-| .... (reserved) ..... |
-+--+--+--+--+--+--+--+--+
-.in -3
-.fi
+None.
 
 .ti 0
 4.3.3  BROADCAST PDU
@@ -912,6 +880,9 @@ SAMPLE      TALLY        DELTA
 STATE       EVENT        FACT
 .in -10
 .fi
+
+A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE value
+set MUST be considered Bogon PDUs.
 
 DATATYPE values cannot be combined.  Any PDUs found with multiple DATATYPE
 values set MSUT be considered Bogon PDUs.
@@ -943,14 +914,7 @@ following subsections.
 .ti 0
 4.3.4.2.2  Flags
 
-.nf
-.in +3
-.ne 3
-+--+--+--+--+--+--+--+--+
-| .... (reserved) ..... |
-+--+--+--+--+--+--+--+--+
-.in -3
-.fi
+None.
 
 .ti 0
 4.3.4.3  TALLY
@@ -1020,6 +984,7 @@ value wrapped around, naturally.
 .in -3
 .fi
 
+.ne 10
 UNIT: Unit time for calculated delta rate
 
 .nf
@@ -1038,6 +1003,7 @@ UNIT: Unit time for calculated delta rate
 .ti 0
 4.3.4.5  STATE
 
+.ne 8
 .ti 0
 4.3.4.5.1  Data Frames
 
@@ -1064,6 +1030,7 @@ UNIT: Unit time for calculated delta rate
 .in -3
 .fi
 
+.ne 4
 Fr: (FRESHNESS) state check freshness state
 
 .nf
@@ -1073,6 +1040,7 @@ Fr: (FRESHNESS) state check freshness state
 .in -3
 .fi
 
+.ne 4
 Tr: (TRANSITION) is this a transition broadcast?
 
 .nf
@@ -1082,6 +1050,7 @@ Tr: (TRANSITION) is this a transition broadcast?
 .in -3
 .fi
 
+.ne 6
 PSv: (PREVIOUS STATUS) Last known fresh status
 
 .nf
@@ -1093,6 +1062,7 @@ PSv: (PREVIOUS STATUS) Last known fresh status
 .in -3
 .fi
 
+.ne 6
 CSv: (CURRENT STATUS) Current (possible stale) status
 
 .nf
@@ -1107,6 +1077,7 @@ CSv: (CURRENT STATUS) Current (possible stale) status
 .ti 0
 4.3.4.6  EVENT
 
+.ne 5
 .ti 0
 4.3.4.6.1  Data Frames
 
@@ -1121,18 +1092,12 @@ CSv: (CURRENT STATUS) Current (possible stale) status
 .ti 0
 4.3.4.6.2  Flags
 
-.nf
-.in +3
-.ne 3
-+--+--+--+--+--+--+--+--+
-| .... (reserved) ..... |
-+--+--+--+--+--+--+--+--+
-.in -3
-.fi
+None.
 
 .ti 0
 4.3.4.7  FACT
 
+.ne 4
 .ti 0
 4.3.4.7.1  Data Frames
 
@@ -1146,14 +1111,7 @@ CSv: (CURRENT STATUS) Current (possible stale) status
 .ti 0
 4.3.4.7.2  Flags
 
-.nf
-.in +3
-.ne 3
-+--+--+--+--+--+--+--+--+
-| .... (reserved) ..... |
-+--+--+--+--+--+--+--+--+
-.in -3
-.fi
+None.
 
 .ti 0
 4.3.4  FORGET PDU
@@ -1164,6 +1122,7 @@ measurements or states.
 .ti 0
 4.3.4.1  Applicable DATATYPEs
 
+.ne 4
 The only applicable DATATYPE values for this opcode are:
 
 .nf
@@ -1173,14 +1132,15 @@ STATE
 .in -10
 .fi
 
+A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE value
+set MUST be considered Bogon PDUs.
+
 DATATYPE values can be combined, meaning that they operate on any metric
 that matches at least one of the set DATATYPE values.
 
+.ne 4
 .ti 0
 4.3.4.2  Data Frames
-
-All FORGET PDUs are identical in form and structure, with respect to
-consituent data frames and their semantics:
 
 .nf
 .in +3
@@ -1206,6 +1166,7 @@ FLAGS are interpreted the same regardless of what DATATYPE values are set:
 .in -3
 .fi
 
+.ne 4
 Ig: (IGNORE) How to handle future data submissions
 
 .nf
@@ -1229,6 +1190,7 @@ event data, and rebroadcast all items so buffered.
 The qualified name frame is required, but may be set to the full glob ("*")
 to elicit a re-broadcast of all known data.
 
+.ne 4
 .ti 0
 4.3.5.1  Applicable DATATYPEs
 
@@ -1239,9 +1201,13 @@ STATE       EVENT        FACT
 .in -10
 .fi
 
+A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE value
+set MUST be considered Bogon PDUs.
+
 DATATYPE values can be combined, meaning that they operate on any metric
 that matches at least one of the set DATATYPE values.
 
+.ne 4
 .ti 0
 4.3.5.2  Data Frames
 
@@ -1255,14 +1221,7 @@ that matches at least one of the set DATATYPE values.
 .ti 0
 4.3.5.3  Flags
 
-.nf
-.in +3
-.ne 3
-+--+--+--+--+--+--+--+--+
-| .... (reserved) ..... |
-+--+--+--+--+--+--+--+--+
-.in -3
-.fi
+None.
 
 .ti 0
 4.3.6  SUBSCRIBE PDU
@@ -1276,6 +1235,7 @@ packets it neither needs nor wants.
 If the `Un' flag is set, the SUBSCRIBE opcode has the opposite effect - it
 removes the matching data streams from the endpoint's subscriptions.
 
+.ne 4
 .ti 0
 4.3.6.1  Applicable DATATYPEs
 
@@ -1286,9 +1246,13 @@ STATES      EVENT        FACT
 .in -10
 .fi
 
+A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE value
+set MUST be considered Bogon PDUs.
+
 DATATYPE values can be combined, meaning that they operate on any metric
 that matches at least one of the set DATATYPE values.
 
+.ne 4
 .ti 0
 4.3.6.2  Data Frames
 
@@ -1311,6 +1275,7 @@ that matches at least one of the set DATATYPE values.
 .in -3
 .fi
 
+.ne 4
 Un: (UNSUBSCRIBE) whether or not to subscribe / unsubscribe
 
 .nf
