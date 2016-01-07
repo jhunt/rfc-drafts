@@ -374,6 +374,7 @@ over UDP.  Each PDU consists of a HEADER and one or more FRAMEs.
 
 .in +3
 .nf
+.ne 9
 +-----------------------------------------------+
 |                    HEADER                     |
 +-----------------------------------------------+
@@ -397,7 +398,7 @@ The HEADER is exactly 32-bits long:
 
 .in +3
 .nf
-
+.ne 7
  0                             1
  0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -486,6 +487,7 @@ small, fixed-size 16-byte metadata header.
 
 .in +3
 .nf
+.ne 7
  0                             1
  0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -690,6 +692,7 @@ that contains the number of packets transmitted so far:
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 |Ro| ... (reserved) ... |
 +--+--+--+--+--+--+--+--+
@@ -738,6 +741,7 @@ following subsections.
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
@@ -758,6 +762,7 @@ following subsections.
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
@@ -777,6 +782,7 @@ following subsections.
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
@@ -796,6 +802,7 @@ following subsections.
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 | . (reserved) .. | ST  |
 +--+--+--+--+--+--+--+--+
@@ -826,6 +833,7 @@ ST: (STATUS) Health status of the checked state
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
@@ -844,6 +852,7 @@ ST: (STATUS) Health status of the checked state
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
@@ -894,6 +903,7 @@ following subsections.
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
@@ -914,6 +924,7 @@ following subsections.
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 |Ro| ... (reserved) ... |
 +--+--+--+--+--+--+--+--+
@@ -948,6 +959,7 @@ value wrapped around, naturally.
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 |  (reserved)  |  UNIT  |
 +--+--+--+--+--+--+--+--+
@@ -985,6 +997,7 @@ UNIT: Unit time for calculated delta rate
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 |Fr|Tr| ... | PSv | CSv |
 +--+--+--+--+--+--+--+--+
@@ -1044,6 +1057,7 @@ CSv: (CURRENT STATUS) Current (possible stale) status
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
@@ -1062,6 +1076,7 @@ CSv: (CURRENT STATUS) Current (possible stale) status
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
@@ -1105,6 +1120,7 @@ consituent data frames and their semantics:
 Qualified names are matched using the Name Equivalency Rules (defined
 in Section 3.2).
 
+.ne 5
 FLAGS are interpreted the same regardless of what DATATYPE values are set:
 
 .nf
@@ -1163,6 +1179,7 @@ that matches at least one of the set DATATYPE values.
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 | .... (reserved) ..... |
 +--+--+--+--+--+--+--+--+
@@ -1206,6 +1223,7 @@ that matches at least one of the set DATATYPE values.
 
 .nf
 .in +3
+.ne 3
 +--+--+--+--+--+--+--+--+
 |Un| ... (reserved) ... |
 +--+--+--+--+--+--+--+--+

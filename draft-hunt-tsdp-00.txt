@@ -526,7 +526,6 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
    The HEADER is exactly 32‐bits long:
 
-
        0                             1
        0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
@@ -548,6 +547,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
       [ 0000 ]  (0)  <malformed version>
       [ 0001 ]  (1)  v1
          ..     ...  (reserved for future use)
+      [ 1111 ]  (F)  (reserved for future use)
 
 
 
@@ -561,8 +561,6 @@ J. Hunt                   Expires July 9, 2016                  [Page 9]
 
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
-
-      [ 1111 ]  (F)  (reserved for future use)
 
 4.1.1.2  OPCODE Field
 
@@ -608,8 +606,10 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
    The actual data of TSDP PDUs lives in one or more frames.  Each frame
    consists of a small, fixed‐size 16‐byte metadata header.
 
-       0                             1
-       0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
+
+
+
+
 
 
 
@@ -624,6 +624,8 @@ J. Hunt                   Expires July 9, 2016                 [Page 10]
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
+       0                             1
+       0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       |FF|  TYPE  |          LENGTH                   |
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
@@ -671,8 +673,6 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
    the 16‐bit frame header) of data are included in the frame.  This is
    the length of the payload.
 
-4.1.2.3.1  TYPE‐specific Sizing Requirements
-
 
 
 J. Hunt                   Expires July 9, 2016                 [Page 11]
@@ -685,6 +685,8 @@ J. Hunt                   Expires July 9, 2016                 [Page 11]
 
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
+
+4.1.2.3.1  TYPE‐specific Sizing Requirements
 
    Some TYPE field values mandate specific LENGTH values.
 
@@ -732,8 +734,6 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
        2. Unrecognized value for the OPCODE field
        3. Unrecognized value for the DATATYPE field
 
-   Any PDU found to have a Malformed Header MUST be considered a Bogon,
-   regardless of whether or not its data frames are well‐formed.
 
 
 
@@ -747,6 +747,9 @@ J. Hunt                   Expires July 9, 2016                 [Page 12]
 
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
+
+   Any PDU found to have a Malformed Header MUST be considered a Bogon,
+   regardless of whether or not its data frames are well‐formed.
 
 4.2.2  Malformed Frames
 
@@ -783,9 +786,6 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
    Implementations MAY log such failures, to assist administrators and
    system designers in troubleshooting resultant data loss and other
    issues.
-
-
-
 
 
 
