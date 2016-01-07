@@ -116,16 +116,16 @@ Table of Contents
      4.3  PDU Specification . . . . . . . . . . . . . . . . . . . . . 14
        4.3.1  HEARTBEAT PDU . . . . . . . . . . . . . . . . . . . . . 14
        4.3.2  SUBMIT PDU  . . . . . . . . . . . . . . . . . . . . . . 14
-       4.3.3  BROADCAST PDU . . . . . . . . . . . . . . . . . . . . . 16
-       4.3.4  FORGET PDU  . . . . . . . . . . . . . . . . . . . . . . 19
-       4.3.5  REBROADCAST PDU . . . . . . . . . . . . . . . . . . . . 20
-       4.3.6  SUBSCRIBE PDU . . . . . . . . . . . . . . . . . . . . . 20
-   5  Security Considerations . . . . . . . . . . . . . . . . . . . . 22
-   6  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 22
-   7  References  . . . . . . . . . . . . . . . . . . . . . . . . . . 22
-     7.1  Normative References  . . . . . . . . . . . . . . . . . . . 22
-     7.2  Informative References  . . . . . . . . . . . . . . . . . . 22
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 22
+       4.3.3  BROADCAST PDU . . . . . . . . . . . . . . . . . . . . . 17
+       4.3.4  FORGET PDU  . . . . . . . . . . . . . . . . . . . . . . 20
+       4.3.5  REBROADCAST PDU . . . . . . . . . . . . . . . . . . . . 21
+       4.3.6  SUBSCRIBE PDU . . . . . . . . . . . . . . . . . . . . . 21
+   5  Security Considerations . . . . . . . . . . . . . . . . . . . . 23
+   6  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 23
+   7  References  . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+     7.1  Normative References  . . . . . . . . . . . . . . . . . . . 23
+     7.2  Informative References  . . . . . . . . . . . . . . . . . . 23
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 23
 .fi
 .in 3
 
