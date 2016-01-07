@@ -730,6 +730,9 @@ following subsections.
 .ti 0
 4.3.2.2  SAMPLE
 
+.ti 0
+4.3.2.2.1  Data Frames
+
 .nf
 .in +3
 1  (string/*)   Qualified name of the sample set
@@ -738,6 +741,9 @@ following subsections.
                 (variadic: more than one value can be specified
 .in -3
 .fi
+
+.ti 0
+4.3.2.2.2  Flags
 
 .nf
 .in +3
@@ -751,6 +757,9 @@ following subsections.
 .ti 0
 4.3.2.3  TALLY
 
+.ti 0
+4.3.2.3.1  Data Frames
+
 .nf
 .in +3
 1  (string/*)   Qualified name of the tally
@@ -759,6 +768,9 @@ following subsections.
                 (optional: if not specified, tally is incremented by 1)
 .in -3
 .fi
+
+.ti 0
+4.3.2.3.2  Flags
 
 .nf
 .in +3
@@ -772,6 +784,9 @@ following subsections.
 .ti 0
 4.3.2.4  DELTA
 
+.ti 0
+4.3.2.4.1  Data Frames
+
 .nf
 .in +3
 1  (string/*)   Qualified name of the delta
@@ -779,6 +794,9 @@ following subsections.
 1  (float/64)   Measurement value
 .in -3
 .fi
+
+.ti 0
+4.3.2.4.2  Flags
 
 .nf
 .in +3
@@ -792,6 +810,9 @@ following subsections.
 .ti 0
 4.3.2.5  STATE
 
+.ti 0
+4.3.2.5.1  Data Frames
+
 .nf
 .in +3
 1 (string/*)    Qualified name of the state
@@ -799,6 +820,9 @@ following subsections.
 ? (string/*)    Summary message text
 .in -3
 .fi
+
+.ti 0
+4.3.2.5.2  Flags
 
 .nf
 .in +3
@@ -823,6 +847,9 @@ ST: (STATUS) Health status of the checked state
 .ti 0
 4.3.2.6  EVENT
 
+.ti 0
+4.3.2.6.1  Data Frames
+
 .nf
 .in +3
 1 (string/*)    Qualified name of the event
@@ -830,6 +857,9 @@ ST: (STATUS) Health status of the checked state
 1 (string/*)    Additional descriptive data about the event
 .in -3
 .fi
+
+.ti 0
+4.3.2.6.2  Flags
 
 .nf
 .in +3
@@ -843,12 +873,18 @@ ST: (STATUS) Health status of the checked state
 .ti 0
 4.3.2.7  FACT
 
+.ti 0
+4.3.2.7.1  Data Frames
+
 .nf
 .in +3
 1 (string/*)    Qualified name of the fact
 1 (string/*)    Value of fact
 .in -3
 .fi
+
+.ti 0
+4.3.2.7.2  Flags
 
 .nf
 .in +3
@@ -887,6 +923,9 @@ following subsections.
 .ti 0
 4.3.4.2  SAMPLE
 
+.ti 0
+4.3.4.2.1  Data Frames
+
 .nf
 .in +3
 1 (string/*)    Qualified name of the sample set
@@ -901,6 +940,9 @@ following subsections.
 .in -3
 .fi
 
+.ti 0
+4.3.4.2.2  Flags
+
 .nf
 .in +3
 .ne 3
@@ -913,6 +955,9 @@ following subsections.
 .ti 0
 4.3.4.3  TALLY
 
+.ti 0
+4.3.4.3.1  Data Frames
+
 .nf
 .in +3
 1 (string/*)    Qualified name of the tally
@@ -921,6 +966,9 @@ following subsections.
 1 (uint/64)     Value of Tally
 .in -3
 .fi
+
+.ti 0
+4.3.4.3.2  Flags
 
 .nf
 .in +3
@@ -948,6 +996,9 @@ value wrapped around, naturally.
 .ti 0
 4.3.4.4  DELTA
 
+.ti 0
+4.3.4.4.1  Data Frames
+
 .nf
 .in +3
 1 (string/*)    Qualified name of the delta
@@ -956,6 +1007,9 @@ value wrapped around, naturally.
 1 (float/64)    Calculated delta change
 .in -3
 .fi
+
+.ti 0
+4.3.4.4.2  Flags
 
 .nf
 .in +3
@@ -984,6 +1038,9 @@ UNIT: Unit time for calculated delta rate
 .ti 0
 4.3.4.5  STATE
 
+.ti 0
+4.3.4.5.1  Data Frames
+
 .nf
 .in +3
 1 (string/*)    Qualified name of the event
@@ -994,6 +1051,9 @@ UNIT: Unit time for calculated delta rate
 1 (string/*)    Current State: state description
 .in -3
 .fi
+
+.ti 0
+4.3.4.5.2  Flags
 
 .nf
 .in +3
@@ -1047,6 +1107,9 @@ CSv: (CURRENT STATUS) Current (possible stale) status
 .ti 0
 4.3.4.6  EVENT
 
+.ti 0
+4.3.4.6.1  Data Frames
+
 .nf
 .in +3
 1 (string/*)    Qualified name of the event
@@ -1054,6 +1117,9 @@ CSv: (CURRENT STATUS) Current (possible stale) status
 1 (string/*)    Additional descriptive data about the event
 .in -3
 .fi
+
+.ti 0
+4.3.4.6.2  Flags
 
 .nf
 .in +3
@@ -1067,12 +1133,18 @@ CSv: (CURRENT STATUS) Current (possible stale) status
 .ti 0
 4.3.4.7  FACT
 
+.ti 0
+4.3.4.7.1  Data Frames
+
 .nf
 .in +3
 1 (string/*)    Qualified name of the fact
 1 (string/*)    Value of fact
 .in -3
 .fi
+
+.ti 0
+4.3.4.7.2  Flags
 
 .nf
 .in +3
@@ -1119,6 +1191,9 @@ consituent data frames and their semantics:
 
 Qualified names are matched using the Name Equivalency Rules (defined
 in Section 3.2).
+
+.ti 0
+4.3.4.3  Flags
 
 .ne 5
 FLAGS are interpreted the same regardless of what DATATYPE values are set:
@@ -1177,6 +1252,9 @@ that matches at least one of the set DATATYPE values.
 .in -3
 .fi
 
+.ti 0
+4.3.5.3  Flags
+
 .nf
 .in +3
 .ne 3
@@ -1220,6 +1298,9 @@ that matches at least one of the set DATATYPE values.
                 of the measurement, state, event or fact.
 .in -3
 .fi
+
+.ti 0
+4.3.6.3  Flags
 
 .nf
 .in +3

@@ -881,10 +881,14 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.2.2  SAMPLE
 
+4.3.2.2.1  Data Frames
+
       1  (string/*)   Qualified name of the sample set
       1  (tstamp/64)  Time of measurement
       +  (float/64)   Measurement to add to the sample set
                       (variadic: more than one value can be specified
+
+4.3.2.2.2  Flags
 
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       | .... (reserved) ..... |
@@ -892,10 +896,14 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.2.3  TALLY
 
+4.3.2.3.1  Data Frames
+
       1  (string/*)   Qualified name of the tally
       1  (tstamp/64)  Time of measurement
       ?  (uint/16)    Value to increment the tally by
                       (optional: if not specified, tally is incremented by 1)
+
+4.3.2.3.2  Flags
 
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       | .... (reserved) ..... |
@@ -903,23 +911,15 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.2.4  DELTA
 
+4.3.2.4.1  Data Frames
+
       1  (string/*)   Qualified name of the delta
       1  (tstamp/64)  Time of measurement
       1  (float/64)   Measurement value
 
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      | .... (reserved) ..... |
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+4.3.2.4.2  Flags
 
-4.3.2.5  STATE
 
-      1 (string/*)    Qualified name of the state
-      1 (tstamp/64)   Time of state check
-      ? (string/*)    Summary message text
-
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      | . (reserved) .. | ST  |
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
 
 
 
@@ -934,6 +934,24 @@ J. Hunt                   Expires July 9, 2016                 [Page 15]
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      | .... (reserved) ..... |
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+
+4.3.2.5  STATE
+
+4.3.2.5.1  Data Frames
+
+      1 (string/*)    Qualified name of the state
+      1 (tstamp/64)   Time of state check
+      ? (string/*)    Summary message text
+
+4.3.2.5.2  Flags
+
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      | . (reserved) .. | ST  |
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+
    ST: (STATUS) Health status of the checked state
 
       [ 00 ]  (0)  OK ‐ state is healthy
@@ -943,9 +961,13 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.2.6  EVENT
 
+4.3.2.6.1  Data Frames
+
       1 (string/*)    Qualified name of the event
       1 (tstamp/64)   Time event occurred
       1 (string/*)    Additional descriptive data about the event
+
+4.3.2.6.2  Flags
 
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       | .... (reserved) ..... |
@@ -953,8 +975,26 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.2.7  FACT
 
+4.3.2.7.1  Data Frames
+
       1 (string/*)    Qualified name of the fact
       1 (string/*)    Value of fact
+
+4.3.2.7.2  Flags
+
+
+
+
+J. Hunt                   Expires July 9, 2016                 [Page 16]
+
+
+
+
+
+
+
+INTERNET DRAFT                    TSDP                   January 6, 2016
+
 
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       | .... (reserved) ..... |
@@ -982,19 +1022,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.4.2  SAMPLE
 
-
-
-
-J. Hunt                   Expires July 9, 2016                 [Page 16]
-
-
-
-
-
-
-
-INTERNET DRAFT                    TSDP                   January 6, 2016
-
+4.3.4.2.1  Data Frames
 
       1 (string/*)    Qualified name of the sample set
       1 (tstamp/64)   Start of aggregation window
@@ -1006,16 +1034,36 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
       1 (float/64)    Population Median (50th percentile) value
       1 (float/64)    Population Standard Deviation
 
+4.3.4.2.2  Flags
+
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       | .... (reserved) ..... |
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
 
 4.3.4.3  TALLY
 
+4.3.4.3.1  Data Frames
+
+
+
+
+J. Hunt                   Expires July 9, 2016                 [Page 17]
+
+
+
+
+
+
+
+INTERNET DRAFT                    TSDP                   January 6, 2016
+
+
       1 (string/*)    Qualified name of the tally
       1 (tstamp/64)   Start of aggregation window
       1 (uint/32)     Aggregation window length (in milliseconds)
       1 (uint/64)     Value of Tally
+
+4.3.4.3.2  Flags
 
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       |Ro| ... (reserved) ... |
@@ -1033,30 +1081,20 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.4.4  DELTA
 
+4.3.4.4.1  Data Frames
+
       1 (string/*)    Qualified name of the delta
       1 (tstamp/64)   Start of aggregation window
       1 (uint/32)     Aggregation window length (in milliseconds)
       1 (float/64)    Calculated delta change
+
+4.3.4.4.2  Flags
 
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       |  (reserved)  |  UNIT  |
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
 
    UNIT: Unit time for calculated delta rate
-
-
-
-
-J. Hunt                   Expires July 9, 2016                 [Page 17]
-
-
-
-
-
-
-
-INTERNET DRAFT                    TSDP                   January 6, 2016
-
 
       [ 000 ]  (0)  UNKNOWN
       [ 001 ]  (1)  0.1s   (100 milliseconds)
@@ -1069,12 +1107,29 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.4.5  STATE
 
+
+
+J. Hunt                   Expires July 9, 2016                 [Page 18]
+
+
+
+
+
+
+
+INTERNET DRAFT                    TSDP                   January 6, 2016
+
+
+4.3.4.5.1  Data Frames
+
       1 (string/*)    Qualified name of the event
       1 (uint/32)     Heartbeat / Freshness window (in milliseconds)
       ? (tstamp/64)   Previous State: time of check
       ? (string/*)    Previous State: state description
       1 (tstamp/64)   Current State: time of check
       1 (string/*)    Current State: state description
+
+4.3.4.5.2  Flags
 
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       |Fr|Tr| ... | PSv | CSv |
@@ -1106,10 +1161,17 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.4.6  EVENT
 
+4.3.4.6.1  Data Frames
+
+      1 (string/*)    Qualified name of the event
+      1 (tstamp/64)   Time event occurred
+      1 (string/*)    Additional descriptive data about the event
+
+4.3.4.6.2  Flags
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 18]
+J. Hunt                   Expires July 9, 2016                 [Page 19]
 
 
 
@@ -1120,18 +1182,18 @@ J. Hunt                   Expires July 9, 2016                 [Page 18]
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
-      1 (string/*)    Qualified name of the event
-      1 (tstamp/64)   Time event occurred
-      1 (string/*)    Additional descriptive data about the event
-
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       | .... (reserved) ..... |
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
 
 4.3.4.7  FACT
 
+4.3.4.7.1  Data Frames
+
       1 (string/*)    Qualified name of the fact
       1 (string/*)    Value of fact
+
+4.3.4.7.2  Flags
 
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       | .... (reserved) ..... |
@@ -1163,15 +1225,15 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
    Qualified names are matched using the Name Equivalency Rules (defined
    in Section 3.2).
 
-   FLAGS are interpreted the same regardless of what DATATYPE values are
-   set:
-
-      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      |Ig| ... (reserved) ... |
+4.3.4.3  Flags
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 19]
+
+
+
+
+J. Hunt                   Expires July 9, 2016                 [Page 20]
 
 
 
@@ -1182,6 +1244,11 @@ J. Hunt                   Expires July 9, 2016                 [Page 19]
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
+   FLAGS are interpreted the same regardless of what DATATYPE values are
+   set:
+
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      |Ig| ... (reserved) ... |
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
 
    Ig: (IGNORE) How to handle future data submissions
@@ -1217,23 +1284,18 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
       1 (string/*)    Qualified name, or name pattern (featuring globs)
                       of the measurement, state, event or fact.
 
+4.3.5.3  Flags
+
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       | .... (reserved) ..... |
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
 
 4.3.6  SUBSCRIBE PDU
 
-   The SUBSCRIBE opcode is used by subscribers to identify what subset
-   of metrics, states, events and facts they are interested in
-   receiving.  This allows a any subscriber to focus on a specific
-   (possible very narrow) slice of the overall data, without wasting
-   network bandwidth receiving BROADCAST packets it neither needs nor
-   wants.
 
 
 
-
-J. Hunt                   Expires July 9, 2016                 [Page 20]
+J. Hunt                   Expires July 9, 2016                 [Page 21]
 
 
 
@@ -1243,6 +1305,13 @@ J. Hunt                   Expires July 9, 2016                 [Page 20]
 
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
+
+   The SUBSCRIBE opcode is used by subscribers to identify what subset
+   of metrics, states, events and facts they are interested in
+   receiving.  This allows a any subscriber to focus on a specific
+   (possible very narrow) slice of the overall data, without wasting
+   network bandwidth receiving BROADCAST packets it neither needs nor
+   wants.
 
    If the ‘Un’ flag is set, the SUBSCRIBE opcode has the opposite effect
    ‐ it removes the matching data streams from the endpoint’s
@@ -1260,6 +1329,8 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
       1 (string/*)    Qualified name, or name pattern (featuring globs)
                       of the measurement, state, event or fact.
+
+4.3.6.3  Flags
 
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       |Un| ... (reserved) ... |
@@ -1286,16 +1357,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-
-
-
-
-
-
-
-
-
-J. Hunt                   Expires July 9, 2016                 [Page 21]
+J. Hunt                   Expires July 9, 2016                 [Page 22]
 
 
 
@@ -1357,7 +1419,7 @@ Authors’ Addresses
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 22]
+J. Hunt                   Expires July 9, 2016                 [Page 23]
 
 
 
