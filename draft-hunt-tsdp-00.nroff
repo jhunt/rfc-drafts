@@ -455,25 +455,24 @@ The 8-bit FLAGS field is reserved for use by OPCODEs.
 .ti 0
 4.1.1.4  DATATYPE Field
 
-The 8-bit DATATYPE field provides some additional context to the OPCODE
+The 16-bit DATATYPE field provides some additional context to the OPCODE
 value, by specifying which type of data the operation should constrain
 itself to.
 
 .in +3
 .nf
-[ 0000 0000 ]  (00)  (none)
+[ 0000 0000  0000 0000 ]  (00 00)  (none)
 
-[ 0000 0001 ]  (01)  SAMPLE
-[ 0000 0010 ]  (02)  TALLY
-[ 0000 0100 ]  (04)  DELTA
-[ 0000 1000 ]  (08)  STATE
-[ 0001 0000 ]  (10)  EVENT
-[ 0010 0000 ]  (20)  FACT
+[ 0000 0000  0000 0001 ]  (00 01)  SAMPLE
+[ 0000 0000  0000 0010 ]  (00 02)  TALLY
+[ 0000 0000  0000 0100 ]  (00 04)  DELTA
+[ 0000 0000  0000 1000 ]  (00 08)  STATE
+[ 0000 0000  0001 0000 ]  (00 10)  EVENT
+[ 0000 0000  0010 0000 ]  (00 20)  FACT
 
-[ 0100 0000 ]  (40)  (reserved)
-[ 1000 0000 ]  (80)  (reserved)
+[ 1111 1111  1100 0000 ]  (FF 70)  (reserved)
 
-[ 1111 1111 ]  (FF)  (all)
+[ 1111 1111  1111 1111 ]  (FF FF)  (all)
 .fi
 .in -3
 
