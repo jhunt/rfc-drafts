@@ -6,7 +6,7 @@
 
 INTERNET‐DRAFT                                                   J. Hunt
 Intended Status: Proposed Standard                      NiftyLogic, Inc.
-Expires: June 3, 2016                                   December 1, 2015
+Expires: July 9, 2016                                    January 6, 2016
 
 
                Telemetry and Sensor Data Protocol ‐‐ TSDP
@@ -45,7 +45,7 @@ Status of this Memo
 
 Copyright and License Notice
 
-   Copyright (c) 2015 IETF Trust and the persons identified as the
+   Copyright (c) 2016 IETF Trust and the persons identified as the
    document authors. All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust’s Legal
@@ -55,7 +55,7 @@ Copyright and License Notice
 
 
 
-J. Hunt                   Expires June 3, 2016                  [Page 1]
+J. Hunt                   Expires July 9, 2016                  [Page 1]
 
 
 
@@ -63,7 +63,7 @@ J. Hunt                   Expires June 3, 2016                  [Page 1]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
    carefully, as they describe your rights and restrictions with respect
@@ -82,6 +82,8 @@ Table of Contents
      2.1  Collected Data  . . . . . . . . . . . . . . . . . . . . . .  4
        2.1.1  Continuous Data . . . . . . . . . . . . . . . . . . . .  4
        2.1.2  Non‐continuous Data . . . . . . . . . . . . . . . . . .  5
+     2.2  Aggregation . . . . . . . . . . . . . . . . . . . . . . . .  6
+     2.3  Broadcast and Subscription  . . . . . . . . . . . . . . . .  6
    3  Qualified Names . . . . . . . . . . . . . . . . . . . . . . . .  7
      3.1  ABNF Grammar  . . . . . . . . . . . . . . . . . . . . . . .  7
      3.2  Equivalance and Comparison  . . . . . . . . . . . . . . . .  7
@@ -99,15 +101,15 @@ Table of Contents
        4.3.1  HEARTBEAT PDU . . . . . . . . . . . . . . . . . . . . . 14
        4.3.2  SUBMIT PDU  . . . . . . . . . . . . . . . . . . . . . . 14
        4.3.3  BROADCAST PDU . . . . . . . . . . . . . . . . . . . . . 16
-       4.3.4  FORGET PDU  . . . . . . . . . . . . . . . . . . . . . . 16
-       4.3.5  REBROADCAST PDU . . . . . . . . . . . . . . . . . . . . 17
-       4.3.6  SUBSCRIBE PDU . . . . . . . . . . . . . . . . . . . . . 17
-   5  Security Considerations . . . . . . . . . . . . . . . . . . . . 18
-   6  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 18
-   7  References  . . . . . . . . . . . . . . . . . . . . . . . . . . 18
-     7.1  Normative References  . . . . . . . . . . . . . . . . . . . 18
-     7.2  Informative References  . . . . . . . . . . . . . . . . . . 18
-   Authors’ Addresses . . . . . . . . . . . . . . . . . . . . . . . . 18
+       4.3.4  FORGET PDU  . . . . . . . . . . . . . . . . . . . . . . 19
+       4.3.5  REBROADCAST PDU . . . . . . . . . . . . . . . . . . . . 20
+       4.3.6  SUBSCRIBE PDU . . . . . . . . . . . . . . . . . . . . . 20
+   5  Security Considerations . . . . . . . . . . . . . . . . . . . . 22
+   6  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 22
+   7  References  . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+     7.1  Normative References  . . . . . . . . . . . . . . . . . . . 22
+     7.2  Informative References  . . . . . . . . . . . . . . . . . . 22
+   Authors’ Addresses . . . . . . . . . . . . . . . . . . . . . . . . 22
 
 
 
@@ -115,9 +117,7 @@ Table of Contents
 
 
 
-
-
-J. Hunt                   Expires June 3, 2016                  [Page 2]
+J. Hunt                   Expires July 9, 2016                  [Page 2]
 
 
 
@@ -125,7 +125,7 @@ J. Hunt                   Expires June 3, 2016                  [Page 2]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 1  Introduction
@@ -179,7 +179,7 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
 
 
-J. Hunt                   Expires June 3, 2016                  [Page 3]
+J. Hunt                   Expires July 9, 2016                  [Page 3]
 
 
 
@@ -187,7 +187,7 @@ J. Hunt                   Expires June 3, 2016                  [Page 3]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 2  Overview
@@ -218,12 +218,14 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
    and future extensibility.  TSDP provides a protocol to ensure that
    the parts still function correctly, as a cohesive whole.
 
+
 2.1  Collected Data
 
    Collected data comes in a handful of distinct types, each with its
    own purpose and associated semantics.
 
 2.1.1  Continuous Data
+
 
 2.1.1.1  Sample Measurements
 
@@ -237,11 +239,9 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
 2.1.1.2  Delta Measurements
 
-   Often, measurements are only supplied as absolute, ever‐increasing
 
 
-
-J. Hunt                   Expires June 3, 2016                  [Page 4]
+J. Hunt                   Expires July 9, 2016                  [Page 4]
 
 
 
@@ -249,9 +249,10 @@ J. Hunt                   Expires June 3, 2016                  [Page 4]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
+   Often, measurements are only supplied as absolute, ever‐increasing
    counters.  In SNMP network monitoring, traffic isn’t tracked as a
    rate per unit of time; instead, the number of packets or bytes sent
    so far is stored as a 64‐bit unsigned counter.  Every time the device
@@ -299,11 +300,10 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
    systems become more dynamic, this need grows stronger.
 
    TSDP accommodates this need via Facts.  Each Fact represents some
-   piece of information about monitored systems.  They are tracked by
 
 
 
-J. Hunt                   Expires June 3, 2016                  [Page 5]
+J. Hunt                   Expires July 9, 2016                  [Page 5]
 
 
 
@@ -311,12 +311,17 @@ J. Hunt                   Expires June 3, 2016                  [Page 5]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
+   piece of information about monitored systems.  They are tracked by
    the aggregators, and fact values are updated when new values are
    submitted.  Facts do not expire (and are therefore non‐continuous).
 
+2.2  Aggregation
+
+
+2.3  Broadcast and Subscription
 
 
 
@@ -360,12 +365,7 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
 
 
-
-
-
-
-
-J. Hunt                   Expires June 3, 2016                  [Page 6]
+J. Hunt                   Expires July 9, 2016                  [Page 6]
 
 
 
@@ -373,7 +373,7 @@ J. Hunt                   Expires June 3, 2016                  [Page 6]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 3  Qualified Names
@@ -427,7 +427,7 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
 
 
-J. Hunt                   Expires June 3, 2016                  [Page 7]
+J. Hunt                   Expires July 9, 2016                  [Page 7]
 
 
 
@@ -435,7 +435,7 @@ J. Hunt                   Expires June 3, 2016                  [Page 7]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
    Two qualified names are equivalent if they are byte‐for‐byte equal
@@ -489,7 +489,7 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
 
 
-J. Hunt                   Expires June 3, 2016                  [Page 8]
+J. Hunt                   Expires July 9, 2016                  [Page 8]
 
 
 
@@ -497,7 +497,7 @@ J. Hunt                   Expires June 3, 2016                  [Page 8]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 4  Wire Protocol
@@ -551,7 +551,7 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
 
 
-J. Hunt                   Expires June 3, 2016                  [Page 9]
+J. Hunt                   Expires July 9, 2016                  [Page 9]
 
 
 
@@ -559,7 +559,7 @@ J. Hunt                   Expires June 3, 2016                  [Page 9]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
       [ 1111 ]  (F)  (reserved for future use)
@@ -586,23 +586,22 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
 4.1.1.4  DATATYPE Field
 
-   The 8‐bit DATATYPE field provides some additional context to the
+   The 16‐bit DATATYPE field provides some additional context to the
    OPCODE value, by specifying which type of data the operation should
    constrain itself to.
 
-      [ 0000 0000 ]  (00)  (none)
+      [ 0000 0000  0000 0000 ]  (00 00)  (none)
 
-      [ 0000 0001 ]  (01)  SAMPLE
-      [ 0000 0010 ]  (02)  TALLY
-      [ 0000 0100 ]  (04)  DELTA
-      [ 0000 1000 ]  (08)  STATE
-      [ 0001 0000 ]  (10)  EVENT
-      [ 0010 0000 ]  (20)  FACT
+      [ 0000 0000  0000 0001 ]  (00 01)  SAMPLE
+      [ 0000 0000  0000 0010 ]  (00 02)  TALLY
+      [ 0000 0000  0000 0100 ]  (00 04)  DELTA
+      [ 0000 0000  0000 1000 ]  (00 08)  STATE
+      [ 0000 0000  0001 0000 ]  (00 10)  EVENT
+      [ 0000 0000  0010 0000 ]  (00 20)  FACT
 
-      [ 0100 0000 ]  (40)  (reserved)
-      [ 1000 0000 ]  (80)  (reserved)
+      [ 1111 1111  1100 0000 ]  (FF 70)  (reserved)
 
-      [ 1111 1111 ]  (FF)  (all)
+      [ 1111 1111  1111 1111 ]  (FF FF)  (all)
 
 4.1.2  PDU Frame Format
 
@@ -610,10 +609,11 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
    consists of a small, fixed‐size 16‐byte metadata header.
 
        0                             1
+       0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
 
 
 
-J. Hunt                   Expires June 3, 2016                 [Page 10]
+J. Hunt                   Expires July 9, 2016                 [Page 10]
 
 
 
@@ -621,10 +621,9 @@ J. Hunt                   Expires June 3, 2016                 [Page 10]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
-       0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       |FF|  TYPE  |          LENGTH                   |
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
@@ -672,10 +671,11 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
    the 16‐bit frame header) of data are included in the frame.  This is
    the length of the payload.
 
+4.1.2.3.1  TYPE‐specific Sizing Requirements
 
 
 
-J. Hunt                   Expires June 3, 2016                 [Page 11]
+J. Hunt                   Expires July 9, 2016                 [Page 11]
 
 
 
@@ -683,10 +683,8 @@ J. Hunt                   Expires June 3, 2016                 [Page 11]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
-
-4.1.2.3.1  TYPE‐specific Sizing Requirements
 
    Some TYPE field values mandate specific LENGTH values.
 
@@ -734,10 +732,12 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
        2. Unrecognized value for the OPCODE field
        3. Unrecognized value for the DATATYPE field
 
+   Any PDU found to have a Malformed Header MUST be considered a Bogon,
+   regardless of whether or not its data frames are well‐formed.
 
 
 
-J. Hunt                   Expires June 3, 2016                 [Page 12]
+J. Hunt                   Expires July 9, 2016                 [Page 12]
 
 
 
@@ -745,11 +745,8 @@ J. Hunt                   Expires June 3, 2016                 [Page 12]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
-
-   Any PDU found to have a Malformed Header MUST be considered a Bogon,
-   regardless of whether or not its data frames are well‐formed.
 
 4.2.2  Malformed Frames
 
@@ -799,7 +796,10 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
 
 
-J. Hunt                   Expires June 3, 2016                 [Page 13]
+
+
+
+J. Hunt                   Expires July 9, 2016                 [Page 13]
 
 
 
@@ -807,7 +807,7 @@ J. Hunt                   Expires June 3, 2016                 [Page 13]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 4.3  PDU Specification
@@ -861,7 +861,7 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
 
 
-J. Hunt                   Expires June 3, 2016                 [Page 14]
+J. Hunt                   Expires July 9, 2016                 [Page 14]
 
 
 
@@ -869,7 +869,7 @@ J. Hunt                   Expires June 3, 2016                 [Page 14]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
    DATATYPE values cannot be combined.  Any PDUs found with multiple
@@ -923,7 +923,7 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
 
 
-J. Hunt                   Expires June 3, 2016                 [Page 15]
+J. Hunt                   Expires July 9, 2016                 [Page 15]
 
 
 
@@ -931,7 +931,7 @@ J. Hunt                   Expires June 3, 2016                 [Page 15]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
    ST: (STATUS) Health status of the checked state
@@ -962,30 +962,216 @@ INTERNET DRAFT                    TSDP                  December 1, 2015
 
 4.3.3  BROADCAST PDU
 
-4.3.4.1  BROADCAST SAMPLE
+   The BROADCAST opcode is used by aggregators to send disseminate
+   information about the state of the world to interested, connected
+   subscriber(s).
 
-4.3.4.2  BROADCAST TALLY
+4.3.3.1  Applicable DATATYPEs
 
-4.3.4.3  BROADCAST DELTA
+   The only applicable DATATYPE values for this opcode are:
 
-4.3.4.4  BROADCAST STATE
+             SAMPLE      TALLY        DELTA
+             STATE       EVENT        FACT
 
-4.3.4.5  BROADCAST EVENT
+   DATATYPE values cannot be combined.  Any PDUs found with multiple
+   DATATYPE values set MSUT be considered Bogon PDUs.
 
-4.3.4.6  BROADCAST FACT
+   Composition of constituent data frames, as well as the semantics of
+   the FLAGS field depends on the DATATYPE in use.  These will be
+   specified in the following subsections.
+
+4.3.4.2  SAMPLE
+
+
+
+
+J. Hunt                   Expires July 9, 2016                 [Page 16]
+
+
+
+
+
+
+
+INTERNET DRAFT                    TSDP                   January 6, 2016
+
+
+      1 (string/*)    Qualified name of the sample set
+      1 (tstamp/64)   Start of aggregation window
+      1 (uint/32)     Aggregation window length (in milliseconds)
+      1 (uint/16)     Number of measurements taken
+      1 (float/64)    Population Minimum value
+      1 (float/64)    Population Maximum value
+      1 (float/64)    Population Mean value
+      1 (float/64)    Population Median (50th percentile) value
+      1 (float/64)    Population Standard Deviation
+
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      | .... (reserved) ..... |
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+
+4.3.4.3  TALLY
+
+      1 (string/*)    Qualified name of the tally
+      1 (tstamp/64)   Start of aggregation window
+      1 (uint/32)     Aggregation window length (in milliseconds)
+      1 (uint/64)     Value of Tally
+
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      |Ro| ... (reserved) ... |
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+
+   Ro: (ROLLOVER) 64‐bit unsigned integer bounds rollover detected; the
+   tally value wrapped around, naturally.
+
+      [ 0 ]  (0)  NO  ‐ tally value has not rolled over; smaller value represents
+                        a reset of the original quantity to 0.
+
+      [ 1 ]  (1)  YES ‐ tally value has rolled over; smaller value represents an
+                        increase above the maximum value of a 64‐bit unsigned
+                        integer.
+
+4.3.4.4  DELTA
+
+      1 (string/*)    Qualified name of the delta
+      1 (tstamp/64)   Start of aggregation window
+      1 (uint/32)     Aggregation window length (in milliseconds)
+      1 (float/64)    Calculated delta change
+
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      |  (reserved)  |  UNIT  |
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+
+   UNIT: Unit time for calculated delta rate
+
+
+
+
+J. Hunt                   Expires July 9, 2016                 [Page 17]
+
+
+
+
+
+
+
+INTERNET DRAFT                    TSDP                   January 6, 2016
+
+
+      [ 000 ]  (0)  UNKNOWN
+      [ 001 ]  (1)  0.1s   (100 milliseconds)
+      [ 010 ]  (2)  1s     (1 second)
+      [ 011 ]  (3)  60s    (1 minute)
+      [ 100 ]  (4)  3600s  (1 hour)
+      [ 101 ]  (5)  86400s (1 day)
+        ...    ...  (reserved)
+      [ 111 ]  (7)  (reserved)
+
+4.3.4.5  STATE
+
+      1 (string/*)    Qualified name of the event
+      1 (uint/32)     Heartbeat / Freshness window (in milliseconds)
+      ? (tstamp/64)   Previous State: time of check
+      ? (string/*)    Previous State: state description
+      1 (tstamp/64)   Current State: time of check
+      1 (string/*)    Current State: state description
+
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      |Fr|Tr| ... | PSv | CSv |
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+
+   Fr: (FRESHNESS) state check freshness state
+
+      [ 0 ]  (0)  STALE ‐ no update received within window
+      [ 1 ]  (1)  FRESH ‐ update(s) received within window
+
+   Tr: (TRANSITION) is this a transition broadcast?
+
+      [ 0 ]  (0)  NO ‐ no previous state data included
+      [ 1 ]  (1)  YES ‐ previous state data (Spr, etc.) included
+
+   PSv: (PREVIOUS STATUS) Last known fresh status
+
+      [ 00 ]  (0)  OK ‐ state is healthy
+      [ 01 ]  (1)  WARNING ‐ state is pre‐failure
+      [ 10 ]  (2)  CRITICAL ‐ state is not healthy
+      [ 11 ]  (3)  ERROR ‐ error occurred detecting state
+
+   CSv: (CURRENT STATUS) Current (possible stale) status
+
+      [ 00 ]  (0)  OK ‐ state is healthy
+      [ 01 ]  (1)  WARNING ‐ state is pre‐failure
+      [ 10 ]  (2)  CRITICAL ‐ state is not healthy
+      [ 11 ]  (3)  ERROR ‐ error occurred detecting state
+
+4.3.4.6  EVENT
+
+
+
+
+J. Hunt                   Expires July 9, 2016                 [Page 18]
+
+
+
+
+
+
+
+INTERNET DRAFT                    TSDP                   January 6, 2016
+
+
+      1 (string/*)    Qualified name of the event
+      1 (tstamp/64)   Time event occurred
+      1 (string/*)    Additional descriptive data about the event
+
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      | .... (reserved) ..... |
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+
+4.3.4.7  FACT
+
+      1 (string/*)    Qualified name of the fact
+      1 (string/*)    Value of fact
+
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      | .... (reserved) ..... |
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
 
 4.3.4  FORGET PDU
 
-4.3.4.1  FORGET SAMPLE
+   The FORGET opcode is used by system operators to drop one or more
+   measurements or states.
 
-4.3.4.2  FORGET TALLY
+4.3.4.1  Applicable DATATYPEs
 
-4.3.4.3  FORGET DELTA
+   The only applicable DATATYPE values for this opcode are:
+
+             SAMPLE      TALLY        DELTA
+             STATE
+
+   DATATYPE values can be combined, meaning that they operate on any
+   metric that matches at least one of the set DATATYPE values.
+
+4.3.4.2  Data Frames
+
+   All FORGET PDUs are identical in form and structure, with respect to
+   consituent data frames and their semantics:
+
+      1 (string/*)    Qualified name, or name pattern (featuring globs)
+                      of the measurement or state
+
+   Qualified names are matched using the Name Equivalency Rules (defined
+   in Section 3.2).
+
+   FLAGS are interpreted the same regardless of what DATATYPE values are
+   set:
+
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      |Ig| ... (reserved) ... |
 
 
 
-
-J. Hunt                   Expires June 3, 2016                 [Page 16]
+J. Hunt                   Expires July 9, 2016                 [Page 19]
 
 
 
@@ -993,61 +1179,61 @@ J. Hunt                   Expires June 3, 2016                 [Page 16]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
-4.3.4.4  FORGET STATE
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+
+   Ig: (IGNORE) How to handle future data submissions
+
+      [ 0 ]  (0)  NO  ‐ ignore future data submissions
+      [ 1 ]  (1)  YES ‐ process future data submissions
 
 4.3.5  REBROADCAST PDU
 
+   The REBROADCAST opcode is used by subscribers to request a full re‐
+   broadcast of the most recent aggregated metrics, states, events and
+   facts.
+
+   Note that EVENT data is fundamentally different from the other
+   datatypes, in that EVENTs are complete and isolated (they do not get
+   regular updates).  Accordingly, the bolo core will buffer a certain
+   number or timeframe of event data, and rebroadcast all items so
+   buffered.
+
+   The qualified name frame is required, but may be set to the full glob
+   ("*") to elicit a re‐broadcast of all known data.
+
+4.3.5.1  Applicable DATATYPEs
+
+             SAMPLE      TALLY        DELTA
+             STATE       EVENT        FACT
+
+   DATATYPE values can be combined, meaning that they operate on any
+   metric that matches at least one of the set DATATYPE values.
+
+4.3.5.2  Data Frames
+
+      1 (string/*)    Qualified name, or name pattern (featuring globs)
+                      of the measurement, state, event or fact.
+
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      | .... (reserved) ..... |
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+
 4.3.6  SUBSCRIBE PDU
 
+   The SUBSCRIBE opcode is used by subscribers to identify what subset
+   of metrics, states, events and facts they are interested in
+   receiving.  This allows a any subscriber to focus on a specific
+   (possible very narrow) slice of the overall data, without wasting
+   network bandwidth receiving BROADCAST packets it neither needs nor
+   wants.
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-J. Hunt                   Expires June 3, 2016                 [Page 17]
+J. Hunt                   Expires July 9, 2016                 [Page 20]
 
 
 
@@ -1055,7 +1241,69 @@ J. Hunt                   Expires June 3, 2016                 [Page 17]
 
 
 
-INTERNET DRAFT                    TSDP                  December 1, 2015
+INTERNET DRAFT                    TSDP                   January 6, 2016
+
+
+   If the ‘Un’ flag is set, the SUBSCRIBE opcode has the opposite effect
+   ‐ it removes the matching data streams from the endpoint’s
+   subscriptions.
+
+4.3.6.1  Applicable DATATYPEs
+
+             SAMPLE      TALLY        DELTA
+             STATES      EVENT        FACT
+
+   DATATYPE values can be combined, meaning that they operate on any
+   metric that matches at least one of the set DATATYPE values.
+
+4.3.6.2  Data Frames
+
+      1 (string/*)    Qualified name, or name pattern (featuring globs)
+                      of the measurement, state, event or fact.
+
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+      |Un| ... (reserved) ... |
+      +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
+
+   Un: (UNSUBSCRIBE) whether or not to subscribe / unsubscribe
+
+      [ 0 ]  (0)  SUBSCRIBE ‐ subscribe to the matching broadcasts
+      [ 1 ]  (1)  UNSUBSCRIBE ‐ unsubscribe from the matching broadcasts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+J. Hunt                   Expires July 9, 2016                 [Page 21]
+
+
+
+
+
+
+
+INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 5  Security Considerations
@@ -1109,7 +1357,7 @@ Authors’ Addresses
 
 
 
-J. Hunt                   Expires June 3, 2016                 [Page 18]
+J. Hunt                   Expires July 9, 2016                 [Page 22]
 
 
 
