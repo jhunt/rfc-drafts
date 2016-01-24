@@ -531,7 +531,8 @@ UINT provides unsigned integer data, encoded in big-endian format, where the
 first bit in the payload is the most significant.
 
 FLOAT provides floating point decimal data of arbitrary precision, per the
-encoding rules specified in IEEE-754 for float32 and float64 values.
+encoding rules specified in IEEE-754 for float32 and float64 values.  This
+transparently handles both non-numbers (NaN) and infinite values (Inf).
 
 STRING provides arbitrary, utf8-encoded text data.
 

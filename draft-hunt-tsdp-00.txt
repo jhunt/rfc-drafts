@@ -657,7 +657,8 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
    FLOAT provides floating point decimal data of arbitrary precision,
    per the encoding rules specified in IEEE‐754 for float32 and float64
-   values.
+   values.  This transparently handles both non‐numbers (NaN) and
+   infinite values (Inf).
 
    STRING provides arbitrary, utf8‐encoded text data.
 
@@ -671,7 +672,6 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
    The 12‐bit LENGTH field identifies how many additional bytes (beyond
    the 16‐bit frame header) of data are included in the frame.  This is
-   the length of the payload.
 
 
 
@@ -685,6 +685,8 @@ J. Hunt                   Expires July 9, 2016                 [Page 11]
 
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
+
+   the length of the payload.
 
 4.1.2.3.1  TYPE‐specific Sizing Requirements
 
@@ -727,12 +729,10 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.2.1  Malformed Headers
 
-   A Malformed Header is any PDU header that meets any or all of the
-   following criteria:
 
-       1. Unrecognized value for the VERSION field
-       2. Unrecognized value for the OPCODE field
-       3. Unrecognized value for the PAYLOAD field
+
+
+
 
 
 
@@ -747,6 +747,13 @@ J. Hunt                   Expires July 9, 2016                 [Page 12]
 
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
+
+   A Malformed Header is any PDU header that meets any or all of the
+   following criteria:
+
+       1. Unrecognized value for the VERSION field
+       2. Unrecognized value for the OPCODE field
+       3. Unrecognized value for the PAYLOAD field
 
    Any PDU found to have a Malformed Header MUST be considered a Bogon,
    regardless of whether or not its data frames are well‐formed.
@@ -786,13 +793,6 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
    Implementations MAY log such failures, to assist administrators and
    system designers in troubleshooting resultant data loss and other
    issues.
-
-
-
-
-
-
-
 
 
 
