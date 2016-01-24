@@ -522,7 +522,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
    The HEADER provides metadata about the PDU, including the version of
    the Bolo protocol that governs the encoding and behavior, an OPCODE,
-   a DATATYPE and a set of operation‐specific FLAGS.
+   a PAYLOAD and a set of operation‐specific FLAGS.
 
    The HEADER is exactly 32‐bits long:
 
@@ -531,7 +531,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       |  VERSION  |  OPCODE   |         FLAGS         |
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
-      |                  DATATYPE                     |
+      |                  PAYLOAD                      |
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
 
 4.1.1.1  VERSION Field
@@ -582,9 +582,9 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
    The 8‐bit FLAGS field is reserved for use by OPCODEs.
 
-4.1.1.4  DATATYPE Field
+4.1.1.4  PAYLOAD Field
 
-   The 16‐bit DATATYPE field provides some additional context to the
+   The 16‐bit PAYLOAD field provides some additional context to the
    OPCODE value, by specifying which type of data the operation should
    constrain itself to.
 
@@ -732,7 +732,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
        1. Unrecognized value for the VERSION field
        2. Unrecognized value for the OPCODE field
-       3. Unrecognized value for the DATATYPE field
+       3. Unrecognized value for the PAYLOAD field
 
 
 
@@ -771,7 +771,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
        1. The number of frames does not match the requirements of the OPCODE
        2. The types of frames do not match the requirements of the OPCODE
-       3. The DATATYPE is invalid per the definition of the OPCODE
+       3. The PAYLOAD is invalid per the definition of the OPCODE
 
    Furthermore, OPCODEs are free to mandate that a PDU be considered a
    Bogon based on semantic rules applied to the contents of data frames,
@@ -822,11 +822,11 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
    Packets are tracked based on the tuple (sender‐ip, sender‐port).
 
-4.3.1.1  Applicable DATATYPEs
+4.3.1.1  Applicable PAYLOADs
 
    None.
 
-   If the DATATYPE field is not set to all zeroes, the PDU must be
+   If the PAYLOAD field is not set to all zeroes, the PDU must be
    considered a Bogon PDU.
 
 4.3.1.2  Data Frames
@@ -852,9 +852,9 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
    The SUBMIT opcode allows client systems to provide measurement, state
    and auxiliary data to the aggregator(s).
 
-4.3.2.1  Applicable DATATYPEs
+4.3.2.1  Applicable PAYLOADs
 
-   The only applicable DATATYPE values for this opcode are:
+   The only applicable PAYLOAD values for this opcode are:
 
              SAMPLE      TALLY        DELTA
              STATE       EVENT        FACT
@@ -872,14 +872,14 @@ J. Hunt                   Expires July 9, 2016                 [Page 14]
 INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
-   A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE
+   A PAYLOAD value must be supplied.  Any PDUs found without a PAYLOAD
    value set MUST be considered Bogon PDUs.
 
-   DATATYPE values cannot be combined.  Any PDUs found with multiple
-   DATATYPE values set MUST be considered Bogon PDUs.
+   PAYLOAD values cannot be combined.  Any PDUs found with multiple
+   PAYLOAD values set MUST be considered Bogon PDUs.
 
    Composition of constituent data frames, as well as the semantics of
-   the FLAGS field depends on the DATATYPE in use.  These will be
+   the FLAGS field depends on the PAYLOAD in use.  These will be
    specified in the following subsections.
 
 4.3.2.2  SAMPLE
@@ -998,21 +998,21 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
    subscriber(s).
 
-4.3.3.1  Applicable DATATYPEs
+4.3.3.1  Applicable PAYLOADs
 
-   The only applicable DATATYPE values for this opcode are:
+   The only applicable PAYLOAD values for this opcode are:
 
              SAMPLE      TALLY        DELTA
              STATE       EVENT        FACT
 
-   A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE
+   A PAYLOAD value must be supplied.  Any PDUs found without a PAYLOAD
    value set MUST be considered Bogon PDUs.
 
-   DATATYPE values cannot be combined.  Any PDUs found with multiple
-   DATATYPE values set MSUT be considered Bogon PDUs.
+   PAYLOAD values cannot be combined.  Any PDUs found with multiple
+   PAYLOAD values set MSUT be considered Bogon PDUs.
 
    Composition of constituent data frames, as well as the semantics of
-   the FLAGS field depends on the DATATYPE in use.  These will be
+   the FLAGS field depends on the PAYLOAD in use.  These will be
    specified in the following subsections.
 
 4.3.4.2  SAMPLE
@@ -1200,18 +1200,18 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
    The FORGET opcode is used by system operators to drop one or more
    measurements or states.
 
-4.3.4.1  Applicable DATATYPEs
+4.3.4.1  Applicable PAYLOADs
 
-   The only applicable DATATYPE values for this opcode are:
+   The only applicable PAYLOAD values for this opcode are:
 
              SAMPLE      TALLY        DELTA
              STATE
 
-   A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE
+   A PAYLOAD value must be supplied.  Any PDUs found without a PAYLOAD
    value set MUST be considered Bogon PDUs.
 
-   DATATYPE values can be combined, meaning that they operate on any
-   metric that matches at least one of the set DATATYPE values.
+   PAYLOAD values can be combined, meaning that they operate on any
+   metric that matches at least one of the set PAYLOAD values.
 
 4.3.4.2  Data Frames
 
@@ -1223,7 +1223,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 4.3.4.3  Flags
 
-   FLAGS are interpreted the same regardless of what DATATYPE values are
+   FLAGS are interpreted the same regardless of what PAYLOAD values are
    set:
 
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
@@ -1255,25 +1255,24 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
    broadcast of the most recent aggregated metrics, states, events and
    facts.
 
-   Note that EVENT data is fundamentally different from the other
-   datatypes, in that EVENTs are complete and isolated (they do not get
-   regular updates).  Accordingly, the bolo core will buffer a certain
-   number or timeframe of event data, and rebroadcast all items so
-   buffered.
+   Note that EVENT data is fundamentally different from the other types,
+   in that EVENTs are complete and isolated (they do not get regular
+   updates).  Accordingly, the bolo core will buffer a certain number or
+   timeframe of event data, and rebroadcast all items so buffered.
 
    The qualified name frame is required, but may be set to the full glob
    ("*") to elicit a re‐broadcast of all known data.
 
-4.3.5.1  Applicable DATATYPEs
+4.3.5.1  Applicable PAYLOADs
 
              SAMPLE      TALLY        DELTA
              STATE       EVENT        FACT
 
-   A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE
+   A PAYLOAD value must be supplied.  Any PDUs found without a PAYLOAD
    value set MUST be considered Bogon PDUs.
 
-   DATATYPE values can be combined, meaning that they operate on any
-   metric that matches at least one of the set DATATYPE values.
+   PAYLOAD values can be combined, meaning that they operate on any
+   metric that matches at least one of the set PAYLOAD values.
 
 4.3.5.2  Data Frames
 
@@ -1295,6 +1294,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
+
 J. Hunt                   Expires July 9, 2016                 [Page 21]
 
 
@@ -1310,16 +1310,16 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
    ‐ it removes the matching data streams from the endpoint’s
    subscriptions.
 
-4.3.6.1  Applicable DATATYPEs
+4.3.6.1  Applicable PAYLOADs
 
              SAMPLE      TALLY        DELTA
              STATES      EVENT        FACT
 
-   A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE
+   A PAYLOAD value must be supplied.  Any PDUs found without a PAYLOAD
    value set MUST be considered Bogon PDUs.
 
-   DATATYPE values can be combined, meaning that they operate on any
-   metric that matches at least one of the set DATATYPE values.
+   PAYLOAD values can be combined, meaning that they operate on any
+   metric that matches at least one of the set PAYLOAD values.
 
 4.3.6.2  Data Frames
 

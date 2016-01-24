@@ -391,7 +391,7 @@ over UDP.  Each PDU consists of a HEADER and one or more FRAMEs.
 4.1.1  PDU Header Format
 
 The HEADER provides metadata about the PDU, including the version of the
-Bolo protocol that governs the encoding and behavior, an OPCODE, a DATATYPE
+Bolo protocol that governs the encoding and behavior, an OPCODE, a PAYLOAD
 and a set of operation-specific FLAGS.
 
 The HEADER is exactly 32-bits long:
@@ -404,7 +404,7 @@ The HEADER is exactly 32-bits long:
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 |  VERSION  |  OPCODE   |         FLAGS         |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                  DATATYPE                     |
+|                  PAYLOAD                      |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 .fi
 .in -3
@@ -456,9 +456,9 @@ Currently allocated bit patterns for OPCODE are:
 The 8-bit FLAGS field is reserved for use by OPCODEs.
 
 .ti 0
-4.1.1.4  DATATYPE Field
+4.1.1.4  PAYLOAD Field
 
-The 16-bit DATATYPE field provides some additional context to the OPCODE
+The 16-bit PAYLOAD field provides some additional context to the OPCODE
 value, by specifying which type of data the operation should constrain
 itself to.
 
@@ -596,7 +596,7 @@ criteria:
 .in +4
 1. Unrecognized value for the VERSION field
 2. Unrecognized value for the OPCODE field
-3. Unrecognized value for the DATATYPE field
+3. Unrecognized value for the PAYLOAD field
 .in -4
 .fi
 
@@ -632,7 +632,7 @@ considered a Bogon if:
 .in +4
 1. The number of frames does not match the requirements of the OPCODE
 2. The types of frames do not match the requirements of the OPCODE
-3. The DATATYPE is invalid per the definition of the OPCODE
+3. The PAYLOAD is invalid per the definition of the OPCODE
 .in -4
 .fi
 
@@ -666,11 +666,11 @@ received from the sender.
 Packets are tracked based on the tuple (sender-ip, sender-port).
 
 .ti 0
-4.3.1.1  Applicable DATATYPEs
+4.3.1.1  Applicable PAYLOADs
 
 None.
 
-If the DATATYPE field is not set to all zeroes, the PDU must be considered a
+If the PAYLOAD field is not set to all zeroes, the PDU must be considered a
 Bogon PDU.
 
 .ti 0
@@ -709,9 +709,9 @@ The SUBMIT opcode allows client systems to provide measurement, state
 and auxiliary data to the aggregator(s).
 
 .ti 0
-4.3.2.1  Applicable DATATYPEs
+4.3.2.1  Applicable PAYLOADs
 
-The only applicable DATATYPE values for this opcode are:
+The only applicable PAYLOAD values for this opcode are:
 
 .nf
 .in +10
@@ -720,14 +720,14 @@ STATE       EVENT        FACT
 .in -10
 .fi
 
-A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE value
+A PAYLOAD value must be supplied.  Any PDUs found without a PAYLOAD value
 set MUST be considered Bogon PDUs.
 
-DATATYPE values cannot be combined.  Any PDUs found with multiple DATATYPE
+PAYLOAD values cannot be combined.  Any PDUs found with multiple PAYLOAD
 values set MUST be considered Bogon PDUs.
 
 Composition of constituent data frames, as well as the semantics of the
-FLAGS field depends on the DATATYPE in use.  These will be specified in the
+FLAGS field depends on the PAYLOAD in use.  These will be specified in the
 following subsections.
 
 .ti 0
@@ -870,9 +870,9 @@ The BROADCAST opcode is used by aggregators to send disseminate information
 about the state of the world to interested, connected subscriber(s).
 
 .ti 0
-4.3.3.1  Applicable DATATYPEs
+4.3.3.1  Applicable PAYLOADs
 
-The only applicable DATATYPE values for this opcode are:
+The only applicable PAYLOAD values for this opcode are:
 
 .nf
 .in +10
@@ -881,14 +881,14 @@ STATE       EVENT        FACT
 .in -10
 .fi
 
-A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE value
+A PAYLOAD value must be supplied.  Any PDUs found without a PAYLOAD value
 set MUST be considered Bogon PDUs.
 
-DATATYPE values cannot be combined.  Any PDUs found with multiple DATATYPE
+PAYLOAD values cannot be combined.  Any PDUs found with multiple PAYLOAD
 values set MSUT be considered Bogon PDUs.
 
 Composition of constituent data frames, as well as the semantics of the
-FLAGS field depends on the DATATYPE in use.  These will be specified in the
+FLAGS field depends on the PAYLOAD in use.  These will be specified in the
 following subsections.
 
 .ti 0
@@ -1120,10 +1120,10 @@ The FORGET opcode is used by system operators to drop one or more
 measurements or states.
 
 .ti 0
-4.3.4.1  Applicable DATATYPEs
+4.3.4.1  Applicable PAYLOADs
 
 .ne 4
-The only applicable DATATYPE values for this opcode are:
+The only applicable PAYLOAD values for this opcode are:
 
 .nf
 .in +10
@@ -1132,11 +1132,11 @@ STATE
 .in -10
 .fi
 
-A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE value
+A PAYLOAD value must be supplied.  Any PDUs found without a PAYLOAD value
 set MUST be considered Bogon PDUs.
 
-DATATYPE values can be combined, meaning that they operate on any metric
-that matches at least one of the set DATATYPE values.
+PAYLOAD values can be combined, meaning that they operate on any metric
+that matches at least one of the set PAYLOAD values.
 
 .ne 4
 .ti 0
@@ -1156,7 +1156,7 @@ in Section 3.2).
 4.3.4.3  Flags
 
 .ne 5
-FLAGS are interpreted the same regardless of what DATATYPE values are set:
+FLAGS are interpreted the same regardless of what PAYLOAD values are set:
 
 .nf
 .in +3
@@ -1182,7 +1182,7 @@ Ig: (IGNORE) How to handle future data submissions
 The REBROADCAST opcode is used by subscribers to request a full re-broadcast
 of the most recent aggregated metrics, states, events and facts.
 
-Note that EVENT data is fundamentally different from the other datatypes, in
+Note that EVENT data is fundamentally different from the other types, in
 that EVENTs are complete and isolated (they do not get regular updates).
 Accordingly, the bolo core will buffer a certain number or timeframe of
 event data, and rebroadcast all items so buffered.
@@ -1192,7 +1192,7 @@ to elicit a re-broadcast of all known data.
 
 .ne 4
 .ti 0
-4.3.5.1  Applicable DATATYPEs
+4.3.5.1  Applicable PAYLOADs
 
 .nf
 .in +10
@@ -1201,11 +1201,11 @@ STATE       EVENT        FACT
 .in -10
 .fi
 
-A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE value
+A PAYLOAD value must be supplied.  Any PDUs found without a PAYLOAD value
 set MUST be considered Bogon PDUs.
 
-DATATYPE values can be combined, meaning that they operate on any metric
-that matches at least one of the set DATATYPE values.
+PAYLOAD values can be combined, meaning that they operate on any metric
+that matches at least one of the set PAYLOAD values.
 
 .ne 4
 .ti 0
@@ -1237,7 +1237,7 @@ removes the matching data streams from the endpoint's subscriptions.
 
 .ne 4
 .ti 0
-4.3.6.1  Applicable DATATYPEs
+4.3.6.1  Applicable PAYLOADs
 
 .nf
 .in +10
@@ -1246,11 +1246,11 @@ STATES      EVENT        FACT
 .in -10
 .fi
 
-A DATATYPE value must be supplied.  Any PDUs found without a DATATYPE value
+A PAYLOAD value must be supplied.  Any PDUs found without a PAYLOAD value
 set MUST be considered Bogon PDUs.
 
-DATATYPE values can be combined, meaning that they operate on any metric
-that matches at least one of the set DATATYPE values.
+PAYLOAD values can be combined, meaning that they operate on any metric
+that matches at least one of the set PAYLOAD values.
 
 .ne 4
 .ti 0
