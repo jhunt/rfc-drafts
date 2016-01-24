@@ -8,9 +8,9 @@
 .ds LF J. Hunt
 .ds RF FORMFEED[Page %]
 .ds LH INTERNET DRAFT
-.ds RH January 6, 2016
+.ds RH January 24, 2016
 .ds CH TSDP
-.ds CF Expires July 9, 2016
+.ds CF Expires July 27, 2016
 .hy 0
 .nh
 .ad l
@@ -19,7 +19,7 @@
 .nf
 .tl 'INTERNET-DRAFT''J. Hunt'
 .tl 'Intended Status: Proposed Standard''NiftyLogic, Inc.'
-.tl 'Expires: July 9, 2016''January 6, 2016'
+.tl 'Expires: July 27, 2016''January 24, 2016'
 .fi
 
 .\" Note. The ".tl" directive is used to generate the leading header

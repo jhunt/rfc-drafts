@@ -6,7 +6,7 @@
 
 INTERNET‐DRAFT                                                   J. Hunt
 Intended Status: Proposed Standard                      NiftyLogic, Inc.
-Expires: July 9, 2016                                    January 6, 2016
+Expires: July 27, 2016                                  January 24, 2016
 
 
                Telemetry and Sensor Data Protocol ‐‐ TSDP
@@ -55,7 +55,7 @@ Copyright and License Notice
 
 
 
-J. Hunt                   Expires July 9, 2016                  [Page 1]
+J. Hunt                   Expires July 27, 2016                 [Page 1]
 
 
 
@@ -63,7 +63,7 @@ J. Hunt                   Expires July 9, 2016                  [Page 1]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
    carefully, as they describe your rights and restrictions with respect
@@ -117,7 +117,7 @@ Table of Contents
 
 
 
-J. Hunt                   Expires July 9, 2016                  [Page 2]
+J. Hunt                   Expires July 27, 2016                 [Page 2]
 
 
 
@@ -125,7 +125,7 @@ J. Hunt                   Expires July 9, 2016                  [Page 2]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
 1  Introduction
@@ -179,7 +179,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                  [Page 3]
+J. Hunt                   Expires July 27, 2016                 [Page 3]
 
 
 
@@ -187,7 +187,7 @@ J. Hunt                   Expires July 9, 2016                  [Page 3]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
 2  Overview
@@ -241,7 +241,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                  [Page 4]
+J. Hunt                   Expires July 27, 2016                 [Page 4]
 
 
 
@@ -249,7 +249,7 @@ J. Hunt                   Expires July 9, 2016                  [Page 4]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
    Often, measurements are only supplied as absolute, ever‐increasing
@@ -303,7 +303,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                  [Page 5]
+J. Hunt                   Expires July 27, 2016                 [Page 5]
 
 
 
@@ -311,7 +311,7 @@ J. Hunt                   Expires July 9, 2016                  [Page 5]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
    piece of information about monitored systems.  They are tracked by
@@ -365,7 +365,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                  [Page 6]
+J. Hunt                   Expires July 27, 2016                 [Page 6]
 
 
 
@@ -373,7 +373,7 @@ J. Hunt                   Expires July 9, 2016                  [Page 6]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
 3  Qualified Names
@@ -427,7 +427,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                  [Page 7]
+J. Hunt                   Expires July 27, 2016                 [Page 7]
 
 
 
@@ -435,7 +435,7 @@ J. Hunt                   Expires July 9, 2016                  [Page 7]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
    Two qualified names are equivalent if they are byte‐for‐byte equal
@@ -489,7 +489,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                  [Page 8]
+J. Hunt                   Expires July 27, 2016                 [Page 8]
 
 
 
@@ -497,7 +497,7 @@ J. Hunt                   Expires July 9, 2016                  [Page 8]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
 4  Wire Protocol
@@ -551,7 +551,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                  [Page 9]
+J. Hunt                   Expires July 27, 2016                 [Page 9]
 
 
 
@@ -559,7 +559,7 @@ J. Hunt                   Expires July 9, 2016                  [Page 9]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
 4.1.1.2  OPCODE Field
@@ -613,7 +613,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 10]
+J. Hunt                   Expires July 27, 2016                [Page 10]
 
 
 
@@ -621,7 +621,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 10]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
        0                             1
@@ -675,7 +675,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 11]
+J. Hunt                   Expires July 27, 2016                [Page 11]
 
 
 
@@ -683,7 +683,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 11]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
    the length of the payload.
@@ -737,7 +737,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 12]
+J. Hunt                   Expires July 27, 2016                [Page 12]
 
 
 
@@ -745,7 +745,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 12]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
    A Malformed Header is any PDU header that meets any or all of the
@@ -799,7 +799,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 13]
+J. Hunt                   Expires July 27, 2016                [Page 13]
 
 
 
@@ -807,7 +807,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 13]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
 4.3  PDU Specification
@@ -861,7 +861,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 14]
+J. Hunt                   Expires July 27, 2016                [Page 14]
 
 
 
@@ -869,7 +869,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 14]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
    A PAYLOAD value must be supplied.  Any PDUs found without a PAYLOAD
@@ -923,7 +923,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 15]
+J. Hunt                   Expires July 27, 2016                [Page 15]
 
 
 
@@ -931,7 +931,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 15]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
 4.3.2.5  STATE
@@ -985,7 +985,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 16]
+J. Hunt                   Expires July 27, 2016                [Page 16]
 
 
 
@@ -993,7 +993,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 16]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
    subscriber(s).
@@ -1047,7 +1047,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 17]
+J. Hunt                   Expires July 27, 2016                [Page 17]
 
 
 
@@ -1055,7 +1055,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 17]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
@@ -1109,7 +1109,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 18]
+J. Hunt                   Expires July 27, 2016                [Page 18]
 
 
 
@@ -1117,7 +1117,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 18]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
 4.3.4.5.1  Data Frames
@@ -1171,7 +1171,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 19]
+J. Hunt                   Expires July 27, 2016                [Page 19]
 
 
 
@@ -1179,7 +1179,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 19]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
    None.
@@ -1233,7 +1233,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 20]
+J. Hunt                   Expires July 27, 2016                [Page 20]
 
 
 
@@ -1241,7 +1241,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 20]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
    Ig: (IGNORE) How to handle future data submissions
@@ -1295,7 +1295,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 21]
+J. Hunt                   Expires July 27, 2016                [Page 21]
 
 
 
@@ -1303,7 +1303,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 21]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
    If the ‘Un’ flag is set, the SUBSCRIBE opcode has the opposite effect
@@ -1357,7 +1357,7 @@ INTERNET DRAFT                    TSDP                   January 6, 2016
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 22]
+J. Hunt                   Expires July 27, 2016                [Page 22]
 
 
 
@@ -1365,7 +1365,7 @@ J. Hunt                   Expires July 9, 2016                 [Page 22]
 
 
 
-INTERNET DRAFT                    TSDP                   January 6, 2016
+INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
 5  Security Considerations
@@ -1419,4 +1419,4 @@ Authors’ Addresses
 
 
 
-J. Hunt                   Expires July 9, 2016                 [Page 23]
+J. Hunt                   Expires July 27, 2016                [Page 23]
