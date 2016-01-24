@@ -658,10 +658,10 @@ designers in troubleshooting resultant data loss and other issues.
 .ti 0
 4.3.1  HEARTBEAT PDU
 
-Clients submitting data to the bolo core may also opt to send HEARTBEAT
+Clients submitting data to an aggregator may also opt to send HEARTBEAT
 packets that identify how many UDP packets have been transmitted by the
 client to the core.  This enables a rudimentary form of packet-loss
-detection, since the bolo core will keep track of the number of packets
+detection, since the aggregator will keep track of the number of packets
 received from the sender.
 
 Packets are tracked based on the tuple (sender-ip, sender-port).
@@ -1181,15 +1181,17 @@ Ig: (IGNORE) How to handle future data submissions
 4.3.5  REBROADCAST PDU
 
 The REBROADCAST opcode is used by subscribers to request a full re-broadcast
-of the most recent aggregated metrics, states, events and facts.
+of the most recent aggregated metrics, states, events and facts.  This
+re-transmission will be isolated to the connecting host IP and port.
+Aggregators MUST abide by any subscriptions in force for that endpoint.
+This allows subscribers to connect, set their subscriptions, request a
+re-broadcast, and then be assured that they are working on a complete set of
+measurements and other data.
 
 Note that EVENT data is fundamentally different from the other types, in
 that EVENTs are complete and isolated (they do not get regular updates).
-Accordingly, the bolo core will buffer a certain number or timeframe of
-event data, and rebroadcast all items so buffered.
-
-The qualified name frame is required, but may be set to the full glob ("*")
-to elicit a re-broadcast of all known data.
+Aggregators MAY choose to buffer a certain number or timeframe of event
+data, and rebroadcast all items so buffered.
 
 .ne 4
 .ti 0
@@ -1212,12 +1214,7 @@ that matches at least one of the set PAYLOAD values.
 .ti 0
 4.3.5.2  Data Frames
 
-.nf
-.in +3
-1 (string/*)    Qualified name, or name pattern (featuring globs)
-                of the measurement, state, event or fact.
-.in -3
-.fi
+None.
 
 .ti 0
 4.3.5.3  Flags
