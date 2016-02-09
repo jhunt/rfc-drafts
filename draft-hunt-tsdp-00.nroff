@@ -116,7 +116,7 @@ Table of Contents
      4.3  PDU Specification . . . . . . . . . . . . . . . . . . . . . 14
        4.3.1  HEARTBEAT PDU . . . . . . . . . . . . . . . . . . . . . 14
        4.3.2  SUBMIT PDU  . . . . . . . . . . . . . . . . . . . . . . 14
-       4.3.3  BROADCAST PDU . . . . . . . . . . . . . . . . . . . . . 16
+       4.3.3  BROADCAST PDU . . . . . . . . . . . . . . . . . . . . . 17
        4.3.4  FORGET PDU  . . . . . . . . . . . . . . . . . . . . . . 20
        4.3.5  REPLAY PDU  . . . . . . . . . . . . . . . . . . . . . . 21
        4.3.6  SUBSCRIBE PDU . . . . . . . . . . . . . . . . . . . . . 21
@@ -1237,6 +1237,11 @@ packets it neither needs nor wants.
 If the `Un' flag is set, the SUBSCRIBE opcode has the opposite effect - it
 removes the matching data streams from the endpoint's subscriptions.
 
+Conforming aggregators MUST drop subscription records after a period of
+inactivity, as specified by the `TTL' flag.  Subscribers are expected to
+re-submit their subscriptions before this expiration deadline, to ensure
+uninterrupted broadcast service.
+
 .ne 4
 .ti 0
 4.3.6.1  Applicable PAYLOADs
@@ -1272,7 +1277,7 @@ that matches at least one of the set PAYLOAD values.
 .in +3
 .ne 3
 +--+--+--+--+--+--+--+--+
-|Un| ... (reserved) ... |
+|Un|  (reserved)  | TTL |
 +--+--+--+--+--+--+--+--+
 .in -3
 .fi
@@ -1284,6 +1289,19 @@ Un: (UNSUBSCRIBE) whether or not to subscribe / unsubscribe
 .in +3
 [ 0 ]  (0)  SUBSCRIBE - subscribe to the matching broadcasts
 [ 1 ]  (1)  UNSUBSCRIBE - unsubscribe from the matching broadcasts
+.in -3
+.fi
+
+.ne 4
+TTL: (TIME-TO-LIVE) how long before the aggregator can expire
+this subscription.
+
+.nf
+.in +3
+[ 00 ]  (0)  60 seconds
+[ 01 ]  (1)  120 seconds
+[ 10 ]  (2)  240 seconds
+[ 11 ]  (3)  480 seconds
 .in -3
 .fi
 
