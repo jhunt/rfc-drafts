@@ -102,7 +102,7 @@ Table of Contents
        4.3.2  SUBMIT PDU  . . . . . . . . . . . . . . . . . . . . . . 14
        4.3.3  BROADCAST PDU . . . . . . . . . . . . . . . . . . . . . 16
        4.3.4  FORGET PDU  . . . . . . . . . . . . . . . . . . . . . . 20
-       4.3.5  REBROADCAST PDU . . . . . . . . . . . . . . . . . . . . 21
+       4.3.5  REPLAY PDU  . . . . . . . . . . . . . . . . . . . . . . 21
        4.3.6  SUBSCRIBE PDU . . . . . . . . . . . . . . . . . . . . . 21
    5  Security Considerations . . . . . . . . . . . . . . . . . . . . 23
    6  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 23
@@ -1249,9 +1249,9 @@ INTERNET DRAFT                    TSDP                  January 24, 2016
       [ 0 ]  (0)  NO  ‐ ignore future data submissions
       [ 1 ]  (1)  YES ‐ process future data submissions
 
-4.3.5  REBROADCAST PDU
+4.3.5  REPLAY PDU
 
-   The REBROADCAST opcode is used by subscribers to request a full re‐
+   The REPLAY opcode is used by subscribers to request a full re‐
    broadcast of the most recent aggregated metrics, states, events and
    facts.  This re‐transmission will be isolated to the connecting host
    IP and port.  Aggregators MUST abide by any subscriptions in force
