@@ -940,7 +940,11 @@ INTERNET DRAFT                    TSDP                  January 24, 2016
 
       1 (string/*)    Qualified name of the state
       1 (tstamp/64)   Time of state check
+      1 (uint/32)     Check interval (in milliseconds)
       ? (string/*)    Summary message text
+
+   If the check interval is 0, the check is not regular and should not
+   be considered for freshness threshold violations.
 
 4.3.2.5.2  Flags
 
@@ -978,10 +982,6 @@ INTERNET DRAFT                    TSDP                  January 24, 2016
 
    None.
 
-4.3.3  BROADCAST PDU
-
-   The BROADCAST opcode is used by aggregators to send disseminate
-   information about the state of the world to interested, connected
 
 
 
@@ -996,6 +996,10 @@ J. Hunt                   Expires July 27, 2016                [Page 16]
 INTERNET DRAFT                    TSDP                  January 24, 2016
 
 
+4.3.3  BROADCAST PDU
+
+   The BROADCAST opcode is used by aggregators to send disseminate
+   information about the state of the world to interested, connected
    subscriber(s).
 
 4.3.3.1  Applicable PAYLOADs
@@ -1040,10 +1044,6 @@ INTERNET DRAFT                    TSDP                  January 24, 2016
       1 (string/*)    Qualified name of the tally
       1 (tstamp/64)   Start of aggregation window
       1 (uint/32)     Aggregation window length (in milliseconds)
-      1 (uint/64)     Value of Tally
-
-4.3.4.3.2  Flags
-
 
 
 
@@ -1057,6 +1057,10 @@ J. Hunt                   Expires July 27, 2016                [Page 17]
 
 INTERNET DRAFT                    TSDP                  January 24, 2016
 
+
+      1 (uint/64)     Value of Tally
+
+4.3.4.3.2  Flags
 
       +‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+‐‐+
       |Ro| ... (reserved) ... |
@@ -1099,10 +1103,6 @@ INTERNET DRAFT                    TSDP                  January 24, 2016
       [ 111 ]  (7)  (reserved)
 
 4.3.4.5  STATE
-
-
-
-
 
 
 
